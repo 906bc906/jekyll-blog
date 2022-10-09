@@ -8,8 +8,8 @@ name: 906bc906
 description: >- # this means to ignore newlines until "baseurl:"
   Second, and Public brain of 906bc906
 # keywords: [Your keywords]
-baseurl: '' # the subpath of your site, e.g. /`blog
-url: 'https://906bc906.github.io/jekyll-blog/' # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: '/jekyll-blog' # the subpath of your site, e.g. /`blog
+url: 'https://906bc906.github.io' # the base hostname & protocol for your site, e.g. http://example.com
 domain: '906bc906' # the domain name for your site, e.g. example.com
 language: ko
 # Supported languages list:
@@ -40,14 +40,14 @@ sass:
   sass_dir: _sass
   style: expanded # compressed, compact, expanded or compressed
 
-# include: ["_pages/note"]
+include: ["_pages/note"]
 exclude: ["_pages/template"]
 
 collections:
   pages:
     ralative_directory: "_pages/note"
     output: true
-    permalink: /:collection/:path.md
+    permalink: /jekyll-blog/:collection/:path.md
 
 
 defaults:
