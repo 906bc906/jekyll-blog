@@ -2,16 +2,16 @@
 #
 # This is the configuration file for your blog, please change these items after forked.
 
-title: Your title
-email: your-email@example.com
-name: Your name
+title: 906bc906
+email: 906bc906@gmail.com
+name: 906bc906
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here.
-keywords: [Your keywords]
+  Second, and Public brain of 906bc906
+# keywords: [Your keywords]
 baseurl: '' # the subpath of your site, e.g. /`blog
-url: '' # the base hostname & protocol for your site, e.g. http://example.com
-domain: 'example.com' # the domain name for your site, e.g. example.com
-language: en
+url: 'https://906bc906.github.io' # the base hostname & protocol for your site, e.g. http://example.com
+domain: '906bc906' # the domain name for your site, e.g. example.com
+language: ko
 # Supported languages list:
 # en: English
 # de: Deutsche (German)
@@ -25,7 +25,7 @@ language: en
 
 analytics: # the Google Analytics property ID, e.g. UA-XXXXX-Y
 
-comments: false # enable comments
+comments: true # enable comments
 disqus: # disqus account
 
 mathjax: true # Math support
@@ -34,19 +34,52 @@ diagram: true # Diagrams support
 paginate: 25
 paginate_path: '/page:num/'
 
-permalink: /:year/:month/:day/:title
+permalink: /:title
 
 sass:
   sass_dir: _sass
   style: expanded # compressed, compact, expanded or compressed
 
+# include: ["_pages/note"]
+exclude: ["_pages/template"]
+
+collections:
+  pages:
+    ralative_directory: "_pages/note"
+    output: true
+    permalink: /:collection/:path.md
+
+
+defaults:
+  -
+    scope:
+      path: "_pages"
+    values:
+      layout: "post"
+      render_with_liquid: false
+      toc: true
+
+feed:
+  collections:
+    - pages
+
+toc:
+  min_level: 2
+  max_level: 4
+  ordered_list: true
+
 # Build settings
-markdown: kramdown
+markdown: CommonMarkGhPages
+commonmark:
+  options: ["UNSAFE", "SMART", "FOOTNOTES"]
+  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+
 plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-toc
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

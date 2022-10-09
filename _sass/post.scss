@@ -5,7 +5,8 @@
 }
 
 .post-content p {
-  line-height: 20px;
+  line-height: 1.5em;
+  margin-bottom: 0.5em;
 }
 
 .post-content img {
@@ -16,9 +17,30 @@
 .post-info {
   line-height: 24px;
   margin: 10px 0;
+  text-align: right;
 }
 
 .post-category,
 .post-tag {
   margin: 0 5px;
+}
+
+.post-content {
+  h2:before {
+    content: "+ ";
+  }
+  h3:before {
+    content: "++ ";
+  }
+  h4:before {
+    content: "+++ ";
+  }
+  h5:before {
+    content: "++++ ";
+  }
+  section.footnotes {
+    border-top: black dotted 1px;
+    padding-top: 0.5em;
+    margin-top: 0.5em;
+  }
 }
