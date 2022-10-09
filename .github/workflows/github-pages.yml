@@ -30,3 +30,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         target_branch: 'gh-pages'
+        jekyll_build_options: "--future"
