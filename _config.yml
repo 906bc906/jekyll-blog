@@ -49,6 +49,7 @@ collections:
     output: true
     permalink: /:collection/:path.md
 
+timezone: Asia/Seoul
 
 defaults:
   -
