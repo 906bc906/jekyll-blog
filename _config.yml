@@ -47,7 +47,7 @@ collections:
   pages:
     ralative_directory: "_pages/note"
     output: true
-    permalink: /jekyll-blog/:collection/:path.md
+    permalink: /:collection/:path.md
 
 
 defaults:
