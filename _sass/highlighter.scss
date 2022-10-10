@@ -17,8 +17,8 @@ pre.highlight {
   font-size: 14px;
 }
 
-code.highlighter-rouge {
-  padding: 0.2em 0.4em;
+:not(pre) > code  {
+  padding: 0.1em 0.3em;
   color: #333;
   border-radius: 6px;
   background-color: #eee;
