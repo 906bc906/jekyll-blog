@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>express error handling (작성중) | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="express error handling (작성중)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://teamdable.github.io/techblog/express-error-handling" />
+<meta property="og:description" content="https://teamdable.github.io/techblog/express-error-handling" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/express%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/express%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-17T23:51:40+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="express error handling (작성중)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:22+09:00","datePublished":"2022-10-17T23:51:40+09:00","description":"https://teamdable.github.io/techblog/express-error-handling","headline":"express error handling (작성중)","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/express%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/express%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>express error handling (작성중)</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-17 23:51 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#section">커스텀 에러 작성</a></li>
+<li class="toc-entry toc-h3"><a href="#section-1">비동기 에러 핸들링</a></li>
+<li class="toc-entry toc-h3"><a href="#section-2">종합 에러 핸들러</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://teamdable.github.io/techblog/express-error-handling">https://teamdable.github.io/techblog/express-error-handling</a></p>
+<p><a href="https://poiemaweb.com/express-error-handling">https://poiemaweb.com/express-error-handling</a></p>
+<p><a href="https://velog.io/@gwon713/Express-winston-morgan-%EB%A1%9C%EA%B7%B8-%EA%B4%80%EB%A6%AC">Express winston morgan 로그 관리</a></p>
+<p><a href="https://hidelryn.github.io/2020/04/12/nodejs-morgan-winston-example/">Node.js Morgan, Winston 사용해보기</a></p>
+<p><a href="https://velog.io/@hopsprings2/node.js-%EC%97%90%EB%9F%AC-%ED%95%B8%EB%93%A4%EB%A7%81-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EC%9D%98-%EB%86%93%EC%B9%9C-%EB%B6%80%EB%B6%84%EC%9D%84-%EC%88%98%ED%98%B8%ED%95%B4%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4#%EB%AA%A8%EB%93%A0-%EA%B2%83%EC%9D%84-consolelogs%EB%A1%9C-%EC%B1%84%EC%9A%B4-%EC%84%9C%EB%B2%84%EB%A5%BC-%EB%A7%8C%EB%93%9C%EC%8B%A0-%EC%A0%81%EC%9D%B4-%EC%9E%88%EC%9C%BC%EC%8B%AD%EB%8B%88%EA%B9%8C">node.js 에러 핸들링 - 아키텍쳐의 빈 구멍 메꾸기</a></p>
+<p><a href="https://velog.io/@c-on/winston-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%A0%81%EC%9A%A9%ED%95%98%EB%8A%94%EC%A7%80-%EB%A7%90%EA%B3%A0-%EC%99%9C-%EA%B7%B8%EB%A0%87%EA%B2%8C-%EC%A0%81%EC%9A%A9%ED%95%98%EB%8A%94%EC%A7%80">express에서의 비동기 에러처리</a></p>
+<p><a href="https://velog.io/@soshin_dev/Node-Express-%EC%97%90%EC%84%9C-Morgan%EA%B3%BC-Winston-%EC%9C%BC%EB%A1%9C-Logging-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0">[ Node ] Express 에서 Morgan과 Winston 으로 Logging 관리하기</a></p>
+<hr />
+<h3 id="section">커스텀 에러 작성</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">HttpException</span> <span class="kd">extends</span> <span class="nb">Error</span> <span class="p">{</span>
+  <span class="nl">status</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">HttpException</span> <span class="kd">extends</span> <span class="nb">Error</span> <span class="kr">implements</span> <span class="nx">HttpException</span> <span class="p">{</span>
+  <span class="nl">status</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">status</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">){</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">HttpException</span><span class="p">;</span>
+<span class="k">export</span> <span class="nx">type</span> <span class="p">{</span> <span class="nx">HttpException</span> <span class="p">};</span>
+</code></pre></div></div>
+<h3 id="section-1">비동기 에러 핸들링</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">express</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="dl">"</span><span class="s2">express-async-errors</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div>
+<h3 id="section-2">종합 에러 핸들러</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NextFunction</span><span class="p">,</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">express</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">logger</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../config/winston</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">type</span> <span class="p">{</span> <span class="nx">HttpException</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../class/HttpError</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">config</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../config</span><span class="dl">'</span>
+
+<span class="kd">const</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">error</span><span class="p">:</span><span class="nx">any</span><span class="p">,</span> <span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">res</span><span class="p">:</span><span class="nx">Response</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span><span class="nx">NextFunction</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
+	<span class="p">...</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">errorObj</span><span class="p">));</span>
+  <span class="nx">next</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">errorHandler</span><span class="p">;</span>
+</code></pre></div></div>
+<p>에러 핸들러는 인자가 err, req, res, next로 4개여야 함</p>
+<p>모든 라우터가 <code>use</code>를 마친 뒤에 미들웨어를 달아줘야</p>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

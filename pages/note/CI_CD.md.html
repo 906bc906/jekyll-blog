@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>CI_CD | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="CI_CD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="CI/CD(지속적 통합/지속적 제공): 개념, 방법, 장점, 구현 과정" />
+<meta property="og:description" content="CI/CD(지속적 통합/지속적 제공): 개념, 방법, 장점, 구현 과정" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/CI_CD.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/CI_CD.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-31T13:59:50+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="CI_CD" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:22+09:00","datePublished":"2022-10-31T13:59:50+09:00","description":"CI/CD(지속적 통합/지속적 제공): 개념, 방법, 장점, 구현 과정","headline":"CI_CD","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/CI_CD.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/CI_CD.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>CI_CD</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-31 13:59 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">요약</a></li>
+<li class="toc-entry toc-h2"><a href="#ci">CI</a></li>
+<li class="toc-entry toc-h2"><a href="#cd-delivery">CD (Delivery)</a></li>
+<li class="toc-entry toc-h2"><a href="#cd-deployment">CD (Deployment)</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://www.redhat.com/ko/topics/devops/what-is-ci-cd">CI/CD(지속적 통합/지속적 제공): 개념, 방법, 장점, 구현 과정</a></p>
+<p><a href="https://www.cisco.com/c/en/us/solutions/data-center/data-center-networking/what-is-ci-cd.html#~ci-cd-explained">What Is CI/CD, Continuous Integration and Continuous Delivery? - Cisco</a></p>
+<p>Continuous Integration (지속적 통합), Continuous Delivery/Deployment (지속적 서비스/배포)</p>
+<h2 id="section">요약</h2>
+<p><img src="https://www.redhat.com/cms/managed-files/styles/wysiwyg_full_width/s3/ci-cd-flow-desktop_edited_0.png?itok=TzgJwj6p" alt="CI/CD" /></p>
+<p>CI/CD</p>
+<ul>
+<li>애플리케이션 개발 단계 자동화</li>
+<li>더 짧은 주기로 고객에게 애플리케이션 제공 가능</li>
+</ul>
+<h2 id="ci">CI</h2>
+<p>코드 변경 사항을 공유 브랜치 또는 트렁크로 다시 병합하는 작업을 더욱 수월하게 자주 수행할 수 있음.</p>
+<p>다른 레벨의 자동화 테스트 실행을 통해 변경 사항이 애플리케이션에 제대로 적용되었는지를 확인.</p>
+<h2 id="cd-delivery">CD (Delivery)</h2>
+<p>런타임 환경에 빌드를 제공</p>
+<p>기능 및 성능 테스트 실행</p>
+<h2 id="cd-deployment">CD (Deployment)</h2>
+<p>코드를 클라우드를 포함한 프로덕션 환경에 배포</p>
+<p>배포는 자동으로 소프트웨어를 시작하고 최종 사용자에게 배포함</p>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

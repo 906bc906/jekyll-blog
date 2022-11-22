@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SolidJS - Stores - Without Context | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="SolidJS - Stores - Without Context" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://www.solidjs.com/tutorial/stores_nocontext" />
+<meta property="og:description" content="https://www.solidjs.com/tutorial/stores_nocontext" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Stores%20-%20Without%20Context.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Stores%20-%20Without%20Context.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T00:20:38+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SolidJS - Stores - Without Context" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:20+09:00","datePublished":"2022-10-10T00:20:38+09:00","description":"https://www.solidjs.com/tutorial/stores_nocontext","headline":"SolidJS - Stores - Without Context","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Stores%20-%20Without%20Context.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Stores%20-%20Without%20Context.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>SolidJS - Stores - Without Context</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 00:20 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">문제</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://www.solidjs.com/tutorial/stores_nocontext">https://www.solidjs.com/tutorial/stores_nocontext</a></p>
+<p>컨텍스트 미사용</p>
+<p>컨텍스트는 Store를 위한 훌륭한 도구다. 인젝션을 처리하고, 소우권을 리액티브 그래프에 연결하고, 자동으로 할당 해제를 관리하며, Solid의 세분화된 렌더링 덕분에 렌더링 오버헤드가 없다.</p>
+<p>때로는 컨텍스트를 사용하는게 너무 과도한 경우가 있으며, 대안은 리액티브 시스템을 직접 사용하는 것이다. 예를 들어, 전역 스코프에 시그널을 생성하고 다른 모듈에서 사용할 수 있도록 export함으로써 전역 리액티브 데이터 스토어를 구축할 수 있다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createSignal</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">solid-js</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">createSignal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">// 다른 소스 파일:</span>
+<span class="k">import</span> <span class="nx">counter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./counter</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">counter</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Solid의 반응성은 보편적인 개념이다. 이것이 컴포넌트 내부에 있는지 외부에 있는지는 중요하지 않다. 전역 상태 vs 로컬 상태에 대한 별도의 구분은 없으며, 모두 같은 것이다.</p>
+<p>유일한 제한 사항은 <strong>모든 계산(이펙트/메모)이 리액티브 루트(createRoot) 아래에 생성</strong>되어야 한다는 점이다. Solid의 render는 이를 자동으로 수행한다.</p>
+<p>이 예제에서는 counter.tsx가 전역 Store이다. main.tsx의 컴포넌트를 다음과 같이 수정할 수 있다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">count</span><span class="p">,</span> <span class="nx">doubleCount</span><span class="p">,</span> <span class="nx">increment</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">counter</span><span class="p">;</span>
+
+<span class="k">return</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="p">=</span><span class="s">"button"</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">increment</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">count</span><span class="p">()</span><span class="si">}</span> <span class="si">{</span><span class="nx">doubleCount</span><span class="p">()</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div></div>
+<p>따라서 계산을 포함하는 더 복잡한 전역 Store를 사용할 때는 루트를 생성해야 한다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createSignal</span><span class="p">,</span> <span class="nx">createMemo</span><span class="p">,</span> <span class="nx">createRoot</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">solid-js</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">createCounter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">createSignal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">increment</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">doubleCount</span> <span class="o">=</span> <span class="nx">createMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">count</span><span class="p">,</span> <span class="nx">doubleCount</span><span class="p">,</span> <span class="nx">increment</span> <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">//export default createCounter;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">createRoot</span><span class="p">(</span><span class="nx">createCounter</span><span class="p">);</span>
+</code></pre></div></div>
+<h2 id="section">문제</h2>
+<p>TARGET DECK
+전체::개발::solid</p>
+<hr />
+<!--ankiQ-->
+<p>컨텍스트를 과하게 사용하는 경우가 있고, 이에 대한 대안은 리액티브 시스템을 직접 사용하는 것이다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createSignal</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">solid-js</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">createSignal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">// 다른 소스 파일:</span>
+<span class="k">import</span> <span class="nx">counter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./counter</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">counter</span><span class="p">;</span>
+</code></pre></div></div>
+<p>위와 같이 전역 스코프에 시그널을 생성하고 export, 다른 모듈에서 import 해서 쓸 수 있다.</p>
+<p>이 방식에 제한 사항이 있는데 무엇인가?</p>
+<!--ankiA-->
+<p>모든 계산(이펙트, 메모)이 리엑티브 루트 아래에 생성되어야 한다.</p>
+<p>Solid의 render 에 리액티브 루트를 만드는(<code>createRoot</code>) 작업이 포함되어 있어 그 동안은 신경쓰지 않고 작업했지만, 리액티브 시스템을 직접 사용할 때는 이를 신경써야 한다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createSignal</span><span class="p">,</span> <span class="nx">createMemo</span><span class="p">,</span> <span class="nx">createRoot</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">solid-js</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">createCounter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">createSignal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">increment</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">doubleCount</span> <span class="o">=</span> <span class="nx">createMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">count</span><span class="p">,</span> <span class="nx">doubleCount</span><span class="p">,</span> <span class="nx">increment</span> <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">//export default createCounter;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">createRoot</span><span class="p">(</span><span class="nx">createCounter</span><span class="p">);</span>
+</code></pre></div></div>
+<p>위처럼 createRoot로 감싸주면 된다.</p>
+<!--ankiE-->
+<!--ID: 1665047073531-->
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

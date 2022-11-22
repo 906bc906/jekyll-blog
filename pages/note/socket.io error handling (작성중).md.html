@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>socket.io error handling (작성중) | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="socket.io error handling (작성중)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="socket.io는 별도로 에러 핸들링 수단을 제공하지 않음" />
+<meta property="og:description" content="socket.io는 별도로 에러 핸들링 수단을 제공하지 않음" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/socket.io%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/socket.io%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-28T15:32:39+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="socket.io error handling (작성중)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:21+09:00","datePublished":"2022-10-28T15:32:39+09:00","description":"socket.io는 별도로 에러 핸들링 수단을 제공하지 않음","headline":"socket.io error handling (작성중)","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/socket.io%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/socket.io%20error%20handling%20(%EC%9E%91%EC%84%B1%EC%A4%91).md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>socket.io error handling (작성중)</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-28 15:32 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p>socket.io는 별도로 에러 핸들링 수단을 제공하지 않음</p>
+<p>이벤트 발생 뒤에는 미들웨어도 붙일 수 없기 때문에 알아서 해야 한다</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">const</span> <span class="nx">asyncFuncDetector</span> <span class="o">=</span> <span class="p">(</span><span class="nx">func</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">func</span><span class="p">.</span><span class="kd">constructor</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">AsyncFunction</span><span class="dl">'</span>
+  <span class="p">?</span> <span class="nx">asyncFuncRunner</span><span class="p">(</span><span class="nx">func</span><span class="p">)</span>
+  <span class="p">:</span> <span class="nx">syncFuncRunner</span><span class="p">(</span><span class="nx">func</span><span class="p">);</span>
+
+  <span class="c1">//check error</span>
+  <span class="kd">const</span> <span class="nx">syncFuncRunner</span> <span class="o">=</span> <span class="p">(</span><span class="nx">func</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(...</span><span class="nx">args</span><span class="p">:</span> <span class="nx">any</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="nx">func</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="na">e</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="kd">const</span> <span class="nx">asyncFuncRunner</span> <span class="o">=</span> <span class="p">(</span><span class="nx">func</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">async</span> <span class="p">(...</span><span class="nx">args</span><span class="p">:</span> <span class="nx">any</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="k">await</span> <span class="nx">func</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="na">e</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> 
+
+  <span class="kd">const</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">:</span> <span class="nb">Error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">error</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="p">.</span><span class="nx">development</span><span class="p">)</span>
+      <span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="c1">//wrap error handler</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_controllers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">_controllers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">asyncFuncDetector</span><span class="p">(</span><span class="nx">_controllers</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>내 해결 방법은 이벤트 핸들러에 미리 에러 핸들러를 부착하는 방식</p>
+<p><code>asyncFuncDetector</code> -&gt; <code>(a)syncFuncRunner</code> -&gt; <code>func(...args)</code> -(error)-&gt; <code>errorHandler(e)</code></p>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

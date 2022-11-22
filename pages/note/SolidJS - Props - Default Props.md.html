@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SolidJS - Props - Default Props | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="SolidJS - Props - Default Props" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://www.solidjs.com/tutorial/props_defaults" />
+<meta property="og:description" content="https://www.solidjs.com/tutorial/props_defaults" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Props%20-%20Default%20Props.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Props%20-%20Default%20Props.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T00:19:16+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SolidJS - Props - Default Props" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-17T01:31:47+09:00","datePublished":"2022-10-10T00:19:16+09:00","description":"https://www.solidjs.com/tutorial/props_defaults","headline":"SolidJS - Props - Default Props","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Props%20-%20Default%20Props.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Props%20-%20Default%20Props.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>SolidJS - Props - Default Props</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 00:19 +09:00
+      <br/>
+      
+        수정일
+        2022-11-17 01:31 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">문제</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://www.solidjs.com/tutorial/props_defaults">https://www.solidjs.com/tutorial/props_defaults</a></p>
+<p>Props는 JSX에 바인딩된 모든 속성을 나타내는, 실행시 컴포넌트 함수에 전달되는 객체다. Props 객체는 읽기 전용이며, Object getter로 래핑된 리액티브 프로퍼티를 갖는다. 이를 통해 호출자가 시그널이나 시그널 표현식, 정적인 값을 사용했는지 여부와 관계없이 props.propName 과 같은 일관된 형식으로 액세스할 수 있다.</p>
+<p>트래킹 스코프 밖에서 props 객체를 디스트럭처링하면서 반응성을 잃을 수 있기 때문에, 디스트럭처링을 사용하지 않는 것이 중요하다. 일반적으로 Solid의 프리미티브나 JSX 밖에서 props 객체의 프로퍼티에 액세스하면 반응성을 잃을 수 있다. 이는 디스트럭처링 뿐만 아니라 스프레드 연산자, Object.assign과 같은 함수에도 적용된다.</p>
+<p>Solid는 props를 사용할 때 도움이 되는 몇 가지 유틸리티를 제공한다.</p>
+<ul>
+<li>mergeProps
+<ul>
+<li>반응성을 잃지 않고 리액티브 객체를 머지(비파괴적인 Object.assgin)할 수 있다.</li>
+<li>컴포넌트의 디폴트 props를 설정할 때 일반적으로 많이 사용한다.</li>
+</ul>
+</li>
+</ul>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">greeting</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">Hi</span><span class="dl">"</span><span class="si">}</span> <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위의 코드를 mergeProps를 이용하여</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">mergeProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">solid-js</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">merged</span> <span class="o">=</span> <span class="nx">mergeProps</span><span class="p">({</span> <span class="na">greeting</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hi</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span> <span class="p">},</span> <span class="nx">props</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">greeting</span><span class="si">}</span> <span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이렇게 수정할 수 있다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">merged</span> <span class="o">=</span> <span class="p">{</span>  <span class="na">greeting</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hi</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="p">,</span> <span class="p">...</span><span class="nx">props</span> <span class="p">};</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">greeting</span><span class="si">}</span> <span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 케이스의 경우 props를 디스트럭처링하여 반응성을 잃는다. props가 변동되더라도 재 렌더링 되지 않는다.</p>
+<h2 id="section">문제</h2>
+<p>TARGET DECK
+전체::개발::solid</p>
+<hr />
+<!--ankiQ-->
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">greeting</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">Hi</span><span class="dl">"</span><span class="si">}</span> <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 Solid 코드는 props의 기본 값을 지정하기 위해 템플릿에 인라인으로 지정했다. 하지만 props.greeting 등의 값이 여기 저기서 쓰여야 한다면 인라인 지정은 코드를 굉장히 난잡하게 만든다.</p>
+<p>Solid에서는 이러한 경우를 위해, 반응성을 잃지 않고 리액티브 객체를 머지할 수 있는 유틸리티를 제공한다. 이를 제공하여 위 코드를 수정하라.</p>
+<!--ankiA-->
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">mergeProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">solid-js</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">merged</span> <span class="o">=</span> <span class="nx">mergeProps</span><span class="p">({</span> <span class="na">greeting</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hi</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span> <span class="p">},</span> <span class="nx">props</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">greeting</span><span class="si">}</span> <span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<!--ankiE-->
+<!--ID: 1664967175913-->
+<hr />
+<!--ankiQ-->
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">Greeting</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">merged</span> <span class="o">=</span> <span class="p">{</span>  <span class="na">greeting</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hi</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="p">,</span> <span class="p">...</span><span class="nx">props</span> <span class="p">};</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">greeting</span><span class="si">}</span> <span class="si">{</span><span class="nx">merged</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 Solid 코드는 어떤 위험성을 내포하고 있는가?</p>
+<!--ankiA-->
+<p>props를 트래킹 스코프 바깥에서 디스트럭처링하여 반응성을 잃는다. 즉, props가 시그널 등으로 업데이트되더라도 재 렌더링되지 않을 것이다.</p>
+<!--ankiE-->
+<!--ID: 1664967175930-->
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

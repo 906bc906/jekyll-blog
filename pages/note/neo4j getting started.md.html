@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>neo4j getting started | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="neo4j getting started" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="설치" />
+<meta property="og:description" content="설치" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/neo4j%20getting%20started.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/neo4j%20getting%20started.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-13T20:25:31+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="neo4j getting started" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:22+09:00","datePublished":"2022-11-13T20:25:31+09:00","description":"설치","headline":"neo4j getting started","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/neo4j%20getting%20started.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/neo4j%20getting%20started.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>neo4j getting started</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-11-13 20:25 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">설치</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#jdk-">JDK 설치</a></li>
+<li class="toc-entry toc-h3"><a href="#neo4j-server-">neo4j server 설치</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#javascript-driver-">javascript driver 설치</a></li>
+<li class="toc-entry toc-h2"><a href="#section-1">컨셉 이해</a></li>
+<li class="toc-entry toc-h2"><a href="#cypher">Cypher</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#example">Example</a></li>
+</ol>
+</li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <h2 id="section">설치</h2>
+<p>윈도우 기준입니다.</p>
+<p><a href="https://neo4j.com/docs/operations-manual/current/installation/windows/">https://neo4j.com/docs/operations-manual/current/installation/windows/</a></p>
+<h3 id="jdk-">JDK 설치</h3>
+<p>OpenJDK나 Oracle JDK를 설치합니다.</p>
+<p>저는 <a href="https://jdk.java.net/18/">OpenJDK 18</a>를 설치했습니다만 Neo4j가 JDK 17을 설치하라고 경고하네요. 여러분들은 17을 설치하세요.</p>
+<p>윈도우용 zip 을 설치해서 적당한 곳에 압축 해제합니다. 저는 <code>C:\path\jdk</code> 에 설치했습니다.</p>
+<p><img src="attachments/Pasted%20image%2020221113153046.png" alt="" /></p>
+<p>윈도우 시스템 변수에 JAVA_HOME을 만들고 압축 해제한 경로를 적어줍니다.</p>
+<p><img src="attachments/Pasted%20image%2020221113153122.png" alt="" /></p>
+<p>이후 시스템 변수 중 Path를 편집하여 <code>%JAVA_HOME%\bin</code> 을 추가합니다.</p>
+<pre><code>C:\Users\User&gt;javac --version
+javac 18.0.2.1
+</code></pre>
+<p>cmd를 열고 <code>javac --version</code> 을 입력해봅니다. 버전이 나오면 됩니다.</p>
+<h3 id="neo4j-server-">neo4j server 설치</h3>
+<p><a href="https://wikidocs.net/50743">Desktop 을 설치하는 방법</a>도 있고, <a href="https://neo4j.com/developer/docker-run-neo4j/">Docker로 실행하는 방법</a>도 있습니다.</p>
+<p>저는 둘 다 패스하고 서버를 직접 윈도우에 설치하겠습니다.</p>
+<p><a href="https://neo4j.com/download-center/#community">https://neo4j.com/download-center/#community</a></p>
+<p>가장 최신 버전인 5.1.0 을 다운로드 받고 적당한 곳에 압축 해제합니다.</p>
+<p>저는 <code>C:\path\neo4j</code> 에 해제했습니다.</p>
+<p><img src="attachments/Pasted%20image%2020221113153844.png" alt="" /></p>
+<p>해제한 경로 뒤에 <code>\bin</code> 을 붙여서 환경 변수 Path에 추가해줍니다.</p>
+<p>cmd를 새로 열어서 <code>neo4j console</code> 을 실행합니다. 이후 브라우저로 <code>http://localhost:7474</code> 에 접속되면 정상적으로 설치된 것입니다.</p>
+<p>기본 ID/PW 설정은 <code>neo4j</code>/<code>neo4j</code> 이므로 기본 설정 그대로 connect 후 비밀번호 변경하면 됩니다.</p>
+<h2 id="javascript-driver-">javascript driver 설치</h2>
+<p><a href="https://www.npmjs.com/package/neo4j-driver">npm 에서 다운로드</a> 받을 수 있습니다.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">neo4j</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">neo4j-driver</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">neo4jDriver</span> <span class="o">=</span> <span class="nx">neo4j</span><span class="p">.</span><span class="nx">driver</span><span class="p">(</span>
+  <span class="dl">'</span><span class="s1">neo4j://localhost</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">neo4j</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">basic</span><span class="p">(</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">password</span><span class="dl">"</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1">//작업</span>
+
+<span class="nx">neo4jDriver</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</code></pre></div></div>
+<h2 id="section-1">컨셉 이해</h2>
+<p>그래프 데이터베이스는 그래프 자료구조를 기반으로 합니다.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/GraphDatabase_PropertyGraph.png/308px-GraphDatabase_PropertyGraph.png" alt="graph" /></p>
+<p>기본적으로 Node, Relationship, Property 로 구성되어 있습니다.</p>
+<h2 id="cypher">Cypher</h2>
+<p><img src="https://dist.neo4j.com/wp-content/uploads/sample-cypher.png" alt="Cypher" /></p>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/">https://neo4j.com/docs/cypher-manual/current/</a></p>
+<p>Neo4j는 그래프 쿼리 언어로 <code>Cypher</code>를 사용합니다.</p>
+<h3 id="example">Example</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">session</span>
+	<span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="dl">'</span><span class="s1">CREATE (:User $props)</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+		<span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+			<span class="na">nickname</span><span class="p">:</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+		<span class="p">}</span>
+	<span class="p">})</span>
+</code></pre></div></div>
+<p><code>label</code>로 <code>User</code>를 갖는 노드를 생성합니다. 또한 Property로 nickname을 가지면 이 값은 <code>i.toString()</code> 입니다.</p>
+<pre><code>MATCH(user:User {nickname: $userProps.nickname})
+MATCH(target:User {nickname: $targetProps.nickname})
+CREATE (user)-[:Follows]-&gt;(target)
+</code></pre>
+<p>nickname이 <code>$userProps.nickname</code>인 User 노드를 찾고, 이를 <code>user</code> 라는 <code>variable</code>로 사용합니다.</p>
+<p>nickname이 <code>$targetProps.nickname</code>인 User 노드를 찾고, 이를 <code>target</code> 라는 <code>variable</code>로 사용합니다.</p>
+<p><code>user</code> 와 <code>target</code>에 관계(<code>user</code>가 <code>target</code>을 가리키는 방향이며 이 관계의 라벨은 <code>Follows</code>)를 생성합니다.</p>
+<pre><code>MATCH(A) RETURN COUNT(A)
+</code></pre>
+<p>모든 노드의 갯수를 반환합니다.</p>
+<p><code>A</code>를 <code>variable</code>로 쓰고 있으며 라벨을 지정하지 않았으므로 라벨과 상관 없이 모든 노드를 지칭하게 됩니다.</p>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

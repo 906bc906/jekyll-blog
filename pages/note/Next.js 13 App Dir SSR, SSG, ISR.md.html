@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Next.js 13 App Dir SSR, SSG, ISR | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Next.js 13 App Dir SSR, SSG, ISR" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="import React from &#39;react&#39; import { Todo } from &#39;../../../typings&#39;;" />
+<meta property="og:description" content="import React from &#39;react&#39; import { Todo } from &#39;../../../typings&#39;;" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-22T13:17:05+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Next.js 13 App Dir SSR, SSG, ISR" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:22+09:00","datePublished":"2022-11-22T13:17:05+09:00","description":"import React from &#39;react&#39; import { Todo } from &#39;../../../typings&#39;;","headline":"Next.js 13 App Dir SSR, SSG, ISR","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>Next.js 13 App Dir SSR, SSG, ISR</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-11-22 13:17 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#csr">CSR</a></li>
+<li class="toc-entry toc-h2"><a href="#ssr">SSR</a></li>
+<li class="toc-entry toc-h2"><a href="#ssg">SSG</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#prebuild">prebuild</a></li>
+<li class="toc-entry toc-h3"><a href="#dynamicparams">dynamicParams</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#isr">ISR</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Todo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../typings</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">type</span> <span class="nx">PageProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="na">todo</span><span class="p">:</span> <span class="nx">Todo</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">todo</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">TodoPage</span><span class="p">({</span> <span class="na">params</span><span class="p">:</span> <span class="p">{</span> <span class="nx">todoId</span> <span class="p">}}:</span> <span class="nx">PageProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetchTodo</span><span class="p">(</span><span class="nx">todoId</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">p-10 bg-yellow-200 border-2 m-2 shadow-lg</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+        <span class="err">#</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}:</span> <span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Completed</span><span class="p">:</span> <span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">Yes</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">No</span><span class="dl">"</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>      
+      <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">border-t border-black mt-5 text-right</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="nx">By</span> <span class="nx">User</span><span class="p">:</span> <span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">userId</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoPage</span>
+</code></pre></div></div>
+<p>현재 위의 코드는 Next.js 13의 App 디렉토리 구조에 배치되었다. Nest.js 13의 App 디렉토리 구조에서는 모든 컴포넌트가 기본적으로 React Server Components, 즉 SSR을 한다.[^default-ssr]</p>
+<p>위 코드를 바탕으로 Next.js 13의 App 디렉토리 구조에서 CSR, SSR, SSG, ISR을 하려면 어떻게 해야되는지 알아본다.</p>
+<p><a href="https://beta.nextjs.org/docs/rendering/static-and-dynamic-rendering#using-dynamic-functions">https://beta.nextjs.org/docs/rendering/static-and-dynamic-rendering#using-dynamic-functions</a></p>
+<p>client 컴포넌트와 server 컴포넌트에 대한 내용도 반드시 읽어보도록 한다: <a href="https://beta.nextjs.org/docs/rendering/server-and-client-components">https://beta.nextjs.org/docs/rendering/server-and-client-components</a></p>
+<h2 id="csr">CSR</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">'</span><span class="s1">use client</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Todo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../typings</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">...</span>
+</code></pre></div></div>
+<p>CSR을 하기 위해서는 <code>&quot;use client&quot;</code> 를 코드 최상단에 배치한다. import 전에 해야한다.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
+<p>이 뒤로 <code>useState</code>나 <code>useEffect</code> 같은 클라이언트 훅을 사용할 수 있다.</p>
+<p>클라이언트 훅이 없는 컴포넌트는 지시문 없이 그대로 두는 것이 가장 좋은데, 다른 클라이언트 컴포넌트에서 가져오지 않을 때 자동으로 서버 컴포넌트로 렌더링될 수 있도록 하기 위해서입니다. 이는 클라이언트측 Javascript를 최소한으로 줄일 수 있게 합니다.[^csr-leaves]</p>
+<p><code>use client</code> 선언문은 새로운 리액트 기능으로 소개되었으며 여전히 많은 리액트 서드 파티 패키지들은 Client-only 기능만 사용하는 경우가 많다. 이 경우 <a href="https://beta.nextjs.org/docs/rendering/server-and-client-components#third-party-packages">해당 페이지</a> 참고</p>
+<h2 id="ssr">SSR</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">cache</span><span class="p">:</span> <span class="dl">"</span><span class="s2">no-cache</span><span class="dl">"</span> <span class="p">}</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+<h2 id="ssg">SSG</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">cache</span><span class="p">:</span> <span class="dl">"</span><span class="s2">force-cache</span><span class="dl">"</span> <span class="p">}</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+<h3 id="prebuild">prebuild</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoPage</span>
+
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">generateStaticParams</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://jsonplaceholder.typicode.com/todos/</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">todos</span><span class="p">:</span> <span class="nx">Todo</span><span class="p">[]</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+  <span class="c1">//10 페이지만 prebuild함- 200개씩 API 날렸다가 API 제한 먹는걸 피하기 위해</span>
+  <span class="kd">const</span> <span class="nx">trimmedTodos</span> <span class="o">=</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+	<span class="c1">//리턴 형태: [{todoId: }, {todoId: }, ...]</span>
+  <span class="k">return</span> <span class="nx">trimmedTodos</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="na">todoId</span><span class="p">:</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span>
+  <span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>dynamic route 세그먼트를 미리 빌드할 수 있게 해주는 함수.<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></p>
+<h3 id="dynamicparams">dynamicParams</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Todo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../typings</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">dynamicParams</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">//</span>
+
+<span class="kd">type</span> <span class="nx">PageProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+</code></pre></div></div>
+<p>generateStaticParams 에 의해 생성되지 않은 dynamic segment 에 방문했을 때의 행동을 정의함.</p>
+<ul>
+<li>true
+<ul>
+<li>default.</li>
+<li>그 때 그 때 생성함.</li>
+</ul>
+</li>
+<li>false
+<ul>
+<li>404 에러 반환.</li>
+</ul>
+</li>
+</ul>
+<h2 id="isr">ISR</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">next</span><span class="p">:</span> <span class="p">{</span> <span class="na">revalidate</span><span class="p">:</span> <span class="mi">60</span> <span class="p">}</span> <span class="p">}</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+<p>Incremental Static Regeneration</p>
+<p>SSR과 SSG의 적절한 중간 느낌. (뇌피셜)</p>
+<p>리퀘스트가 들어오면 페이지를 새로 만든다.</p>
+<p>위 코드를 기준으로, 만약 새로 페이지를 만든지 60초가 지나지 않았다면, 그 사이에 리퀘스트가 들어와도 새로 페이지를 만들지 않고 만들어놨던 페이지를 그대로 서빙한다.</p>
+<p>만약 60초가 지난 경우, 바로 페이지를 재생성하진 않고, 60초가 지난 뒤에 다시 리퀘스트가 온 경우에만 페이지를 재생성하고, 다시 60초를 돌린다.</p>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p><a href="https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components">https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p><a href="https://beta.nextjs.org/docs/api-reference/generate-static-params">https://beta.nextjs.org/docs/api-reference/generate-static-params</a> <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

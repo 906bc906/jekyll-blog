@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>쿠키 SameSite 문제 | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="쿠키 SameSite 문제" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="이 문제는 express 프론트, 백 서버 분리 후 세션 쿠키 관리 에서 파생되었음." />
+<meta property="og:description" content="이 문제는 express 프론트, 백 서버 분리 후 세션 쿠키 관리 에서 파생되었음." />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/%EC%BF%A0%ED%82%A4%20SameSite%20%EB%AC%B8%EC%A0%9C.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/%EC%BF%A0%ED%82%A4%20SameSite%20%EB%AC%B8%EC%A0%9C.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-18T14:19:38+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="쿠키 SameSite 문제" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-17T01:31:45+09:00","datePublished":"2022-10-18T14:19:38+09:00","description":"이 문제는 express 프론트, 백 서버 분리 후 세션 쿠키 관리 에서 파생되었음.","headline":"쿠키 SameSite 문제","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/%EC%BF%A0%ED%82%A4%20SameSite%20%EB%AC%B8%EC%A0%9C.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/%EC%BF%A0%ED%82%A4%20SameSite%20%EB%AC%B8%EC%A0%9C.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>쿠키 SameSite 문제</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-18 14:19 +09:00
+      <br/>
+      
+        수정일
+        2022-11-17 01:31 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">문제</a></li>
+<li class="toc-entry toc-h2"><a href="#section-1">배경 이해</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#same-site-">Same-site가 뭐야?</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#section-2">참조</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p>이 문제는 <a href="express%20%ED%94%84%EB%A1%A0%ED%8A%B8,%20%EB%B0%B1%20%EC%84%9C%EB%B2%84%20%EB%B6%84%EB%A6%AC%20%ED%9B%84%20%EC%84%B8%EC%85%98%20%EC%BF%A0%ED%82%A4%20%EA%B4%80%EB%A6%AC.md">express 프론트, 백 서버 분리 후 세션 쿠키 관리</a> 에서 파생되었음.</p>
+<h2 id="section">문제</h2>
+<p>프론트엔드 서버와 백엔드 서버가 다른 도메인을 사용하고 있는 경우, <code>samesite</code> 문제가 생김.</p>
+<p>프론트엔드 컴퓨터에서는 앱 서버로 <code>http://localhost:3000</code>, API 서버는 <code>http://&lt;백엔드 컴퓨터 ip&gt;:4000</code> 에 접속하고 있는 상황이었다.</p>
+<p><img src="attachments/Pasted%20image%2020221018135050.png" alt="" /></p>
+<p><img src="attachments/Pasted%20image%2020221018135103.png" alt="" /></p>
+<blockquote>
+<p>이 Set-Cookie 헤더는 “SameSite” 속성을 지정하지 않고 “SameSite=Lax” 로 기본 설정되었습니다. 또한 최상위 탐색에 관한 응답이 아닌 크로스 사이트 응답에서 발생하여 차단되었습니다. Set-Cookie는 크로스 사이트 사용이 가능하도록 “SameStie=None” 으로 설정되어야 합니다.</p>
+</blockquote>
+<p>프론트엔드 컴퓨터 입장에서, <code>localhost</code> 와 <code>&lt;백엔드 컴퓨터 ip&gt;</code> 는 다른 도메인이므로 쿠키 사용을 거부한 것.</p>
+<p>브라우저가 왜 이런 정책을 사용하는지는 다음 아티클을 통해 이해할 수 있다: <a href="https://developers.google.com/search/blog/2020/01/get-ready-for-new-samesitenone-secure?hl=ko">새로운 SameSite=None; Secure 쿠키 설정에 대비  |  Google 검색 센터 블로그  |  Google Developers</a></p>
+<h2 id="section-1">배경 이해</h2>
+<p><code>SameSite</code> 속성은 리퀘스트가 <code>same-site</code> 인 경우에만 쿠키가 부착되도록 범위를 제한하는 옵션이다.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
+<p><code>SameSite</code> 의 속성은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>값</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strict</td>
+<td>“same-site” 요청인 경우에만 쿠키가 전송된다.</td>
+</tr>
+<tr>
+<td>Lax</td>
+<td>(기본값) “same-site” 요청인 경우 및 “cross-site”에서의 top-level navigation 일부에서 쿠키가 전송된다.</td>
+</tr>
+<tr>
+<td>None</td>
+<td>SameSite를 검증하지 않는다. 쿠키가 <code>secure</code> 해야 한다. (https)</td>
+</tr>
+</tbody>
+</table>
+<p>이것만 봐서는 어떤 내용인지 이해하기가 어렵다.</p>
+<p>Strict, Lax, None 에 대한 내용을 이해하기 쉬운 유튜브 영상: <a href="https://www.youtube.com/watch?v=aUF2QCEudPo">https://www.youtube.com/watch?v=aUF2QCEudPo</a></p>
+<h3 id="same-site-">Same-site가 뭐야?</h3>
+<p>그래서, SameSite와 CrossSite를 판별하는 기준이 무엇인지부터가 애매하다.</p>
+<p>잘 정리된 글</p>
+<ul>
+<li><a href="https://stitchcoding.tistory.com/m/46">SameSite vs SameOrigin</a></li>
+<li><a href="https://web.dev/same-site-same-origin/">Understanding “same-site” and “same-origin”</a></li>
+</ul>
+<p>요약하자면,</p>
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>same origin</th>
+<th>same site</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scheme(http)</td>
+<td>v</td>
+<td></td>
+</tr>
+<tr>
+<td>domain</td>
+<td>v</td>
+<td>eTLD+1</td>
+</tr>
+<tr>
+<td>subdomain</td>
+<td>v</td>
+<td></td>
+</tr>
+<tr>
+<td>port</td>
+<td>v</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://web-dev.imgix.net/image/admin/PX5HrIMPlgcbzYac3FHV.png?auto=format&amp;w=741" alt="" /></p>
+<p><code>sameorigin</code>은 scheme, host name, port가 모두 같아야 하며,</p>
+<p><img src="https://web-dev.imgix.net/image/admin/oSRJzCJIr4OjGzUhcNDP.png?auto=format&amp;w=741" alt="" />
+<code>sameSite</code> 는 eTLD+1이 같으면, scheme, subdomain, port는 상관 없다.</p>
+<p>TLD(Top-Level Domain) 이면 TLD지, 왜 eTLD(effective Top-Level Domain) 인가?</p>
+<p>이는 <code>Public Suffix List</code> 와 관련이 있는데, 쿠키를 취급할 때 TLD 만으로는 문제가 되는 경우가 생기기 때문이다.</p>
+<p><code>github.io</code> 의 경우 TLD는 <code>io</code> 지만, TLD+1 을 기준으로 samesite 를 판별하면 문제가 생길 수 있다.</p>
+<p>왜냐하면 github.io 의 서브 도메인의 관리를 github.io가 아닌 유저가 하기 때문이다. 당장 이 블로그만 하더라도 <code>906bc906.github.io</code> 이며 TLD+1 을 기준으로 쿠키를 관리하면 내가 악의적으로 <code>github.io</code>에 발급된 쿠키를 빼올 수 있다.</p>
+<p>이런 경우까지 고려하기 위해 <code>Public Suffix List</code> 를 관리하며, 이를 sameSite 판별 기준에 포함한다.</p>
+<h2 id="section-2">참조</h2>
+<p><a href="https://jub0bs.com/posts/2021-01-29-great-samesite-confusion/">https://jub0bs.com/posts/2021-01-29-great-samesite-confusion/</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies</a></p>
+<p><a href="https://www.youtube.com/watch?v=aUF2QCEudPo">https://www.youtube.com/watch?v=aUF2QCEudPo</a></p>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

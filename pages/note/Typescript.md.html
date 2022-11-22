@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Typescript | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Typescript" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="TARGET DECK 전체::개발::typescript" />
+<meta property="og:description" content="TARGET DECK 전체::개발::typescript" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/Typescript.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/Typescript.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T01:07:51+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Typescript" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-17T01:31:46+09:00","datePublished":"2022-10-10T01:07:51+09:00","description":"TARGET DECK 전체::개발::typescript","headline":"Typescript","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/Typescript.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/Typescript.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="todo" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>Typescript</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 01:07 +09:00
+      <br/>
+      
+        수정일
+        2022-11-17 01:31 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">설치 및 실행</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#ts-node">ts-node</a></li>
+<li class="toc-entry toc-h3"><a href="#section-1">빌드 툴</a>
+<ol>
+<li class="toc-entry toc-h4"><a href="#vite">Vite</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#tsconfigjson">tsconfig.json</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#noimplicitany">noImplicitAny</a></li>
+<li class="toc-entry toc-h3"><a href="#strictnullchecks">strictNullChecks</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#vscode-extension">VScode extension</a></li>
+<li class="toc-entry toc-h2"><a href="#section-2">문법</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#section-3">타입 추론</a></li>
+<li class="toc-entry toc-h3"><a href="#section-4">변수 타입 지정</a>
+<ol>
+<li class="toc-entry toc-h4"><a href="#union-type">union type</a></li>
+<li class="toc-entry toc-h4"><a href="#type-alias">type alias</a></li>
+<li class="toc-entry toc-h4"><a href="#interface">interface</a></li>
+<li class="toc-entry toc-h4"><a href="#function-type">function type</a></li>
+<li class="toc-entry toc-h4"><a href="#array-tuple">Array tuple</a></li>
+<li class="toc-entry toc-h4"><a href="#class">class</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#handbook">Handbook</a></li>
+<li class="toc-entry toc-h2"><a href="#dts-">d.ts 파일이란?</a></li>
+<li class="toc-entry toc-h2"><a href="#to-do">to do</a></li>
+<li class="toc-entry toc-h2"><a href="#section-5">참고</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p>TARGET DECK
+전체::개발::typescript</p>
+<p><a href="https://www.typescriptlang.org/">https://www.typescriptlang.org/</a></p>
+<p>자바스크립트로 빌드하는 강타입 언어.</p>
+<h2 id="section">설치 및 실행</h2>
+<p>일반적으로는, 타입스크립트 <code>ts</code> 파일을 자바스크립트 파일로 컴파일하고 그것을 실행하는 방식으로 진행한다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>typescript <span class="nt">-D</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx tsc hello.ts
+node hello.js
+</code></pre></div></div>
+<p>typescript 패키지에는 컴파일러(tsc)가 포함되어있으며 npx tsc 로 ts 파일을 js로 컴파일할 수 있다. (전역으로 설치했다면 npx 안 써도 됨)</p>
+<!--ankiQ-->
+<p>Q. 타입스크립트의 타입 표기는 프로그램의 런타임 동작을 수정하는가?</p>
+<!--ankiA-->
+<p>A. 전혀 수정하지 않음.</p>
+<!--ankiE-->
+<!--ID: 1664295816662-->
+<h3 id="ts-node">ts-node</h3>
+<p>컴파일 한 후 node로 실행하는 것이 번거롭다면 ts-node를 사용해볼 수 있다.</p>
+<p><a href="https://www.npmjs.com/package/ts-node">https://www.npmjs.com/package/ts-node</a></p>
+<p>ts-node는 실행하면서 ts를 js로 즉시 전환해준다. 즉, 위의 tsc -&gt; node 과정을,</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ts-node hello.ts
+</code></pre></div></div>
+<p>와 같이 생략할 수 있다.</p>
+<p>nodemon과 같이 사용할 수도 있다.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> 개발에 사용하면 편리.</p>
+<p>ts-node-dev 라는 모듈도 있다.<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></p>
+<p>하지만 컴파일러를 메모리 위에 올려두고 동작하는 특성상 production에서는 사용하지 않는 것이 좋다.<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup></p>
+<h3 id="section-1">빌드 툴</h3>
+<p><a href="https://www.typescriptlang.org/docs/handbook/integrating-with-build-tools.html">https://www.typescriptlang.org/docs/handbook/integrating-with-build-tools.html</a></p>
+<p>여러가지 빌드 툴을 이용하여 빌드할 수 있다.</p>
+<h4 id="vite">Vite</h4>
+<p>Vite는 <code>.ts</code> 파일을 즉시 import 하는 것을 지원한다. 단, 타입 확인은 하지 않아 <code>tsc --noEmit</code> 등 빌드 과정에서 확인해야 함. [^vite-ts]</p>
+<p>또한 TS 컴파일러 옵션 중 <code>isolatedModules</code> 가 무조건 <code>true</code> 로 설정되어야 한다.</p>
+<h2 id="tsconfigjson">tsconfig.json</h2>
+<p><a href="https://www.typescriptlang.org/ko/docs/handbook/tsconfig-json.html">TypeScript: Documentation - What is a tsconfig.json</a></p>
+<h3 id="noimplicitany">noImplicitAny</h3>
+<p>몇몇 경우 TS는 값의 타입을 추론하지 않고 any로 간주하는데, 위 플래그를 활성화하면 이런 암묵적 any 추론에 대하여 오류를 발생함.</p>
+<h3 id="strictnullchecks">strictNullChecks</h3>
+<p>null, undefined를 보다 명시적으로 처리. null 혹은 undefined 갑을 참조하는 것을 방지함.</p>
+<p><a href="https://ohhako.github.io/kimhako/articles/2020-07/Angular-strictNullChecks-post-copy">[TypeScript] strictNullChecks과 Type Guards를 이용한 안전한 코드 | kimhako</a></p>
+<h2 id="vscode-extension">VScode extension</h2>
+<p><a href="https://inpa.tistory.com/entry/VSCode-%F0%9F%92%BD-TypeScript-%EC%BD%94%EB%94%A9%ED%95%98%EB%8A%94%EB%8D%B0-%EC%9C%A0%EC%9A%A9%ED%95%9C-%ED%99%95%EC%9E%A5%ED%8C%A9-%F0%9F%92%AF-%EC%B6%94%EC%B2%9C">[VSCode] 💽 TypeScript 코딩하는데 유용한 확장팩 💯 추천</a></p>
+<h2 id="section-2">문법</h2>
+<h3 id="section-3">타입 추론</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">msg</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hello there!</span><span class="dl">"</span> <span class="c1">//msg: string</span>
+</code></pre></div></div>
+<p>값으로부터 추론되는 것들은 굳이 타입 표기를 적지 않는 것이 가장 좋다.</p>
+<h3 id="section-4">변수 타입 지정</h3>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">name</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">names</span><span class="p">:</span><span class="kr">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bbb</span><span class="dl">"</span><span class="p">];</span>
+</code></pre></div></div>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">name</span><span class="p">:{</span><span class="nl">firstName</span><span class="p">:</span><span class="kr">string</span><span class="p">,</span> <span class="nx">middleName</span><span class="p">?:</span><span class="kr">string</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">:</span><span class="kr">string</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="na">firstName</span><span class="p">:</span><span class="dl">"</span><span class="s2">Cheolsu</span><span class="dl">"</span><span class="p">,</span> <span class="na">lastName</span><span class="p">:</span><span class="dl">"</span><span class="s2">Kim</span><span class="dl">"</span><span class="p">};</span>
+</code></pre></div></div>
+<h4 id="union-type">union type</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">codeNumber</span><span class="p">:</span><span class="kr">string</span><span class="o">|</span><span class="kr">number</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+</code></pre></div></div>
+<h4 id="type-alias">type alias</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">NewType</span> <span class="o">=</span> <span class="kr">string</span> <span class="o">|</span> <span class="kr">string</span><span class="p">[];</span>
+<span class="kd">let</span> <span class="nx">varname</span><span class="p">:</span><span class="nx">NewType</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div>
+<h4 id="interface">interface</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span>
+  <span class="nx">age</span><span class="p">:</span> <span class="kr">number</span>
+  <span class="nx">gender</span><span class="p">?</span> <span class="p">:</span> <span class="kr">string</span>
+  <span class="k">readonly</span> <span class="nx">birthYear</span> <span class="p">:</span> <span class="kr">number</span>
+  <span class="p">[</span><span class="nx">key</span><span class="p">:</span><span class="kr">number</span><span class="p">]</span> <span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">user</span> <span class="p">:</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">xx</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">age</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="na">birthYear</span> <span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
+  <span class="mi">1</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">A</span><span class="dl">'</span><span class="p">,</span>
+  <span class="mi">2</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">B</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Add</span> <span class="p">{</span>
+  <span class="p">(</span><span class="nx">num1</span><span class="p">:</span><span class="kr">number</span><span class="p">,</span> <span class="nx">num2</span><span class="p">:</span><span class="kr">number</span><span class="p">):</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">add</span> <span class="p">:</span> <span class="nx">Add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="interface-extends">interface extends</h5>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Car</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+  
+<span class="kr">interface</span> <span class="nx">Toy</span> <span class="p">{</span>
+  <span class="nl">name</span> <span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">ToyCar</span> <span class="kd">extends</span> <span class="nx">Car</span><span class="p">,</span> <span class="nx">Toy</span> <span class="p">{</span>
+  <span class="nl">price</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h4 id="function-type">function type</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">makeDouble</span><span class="p">(</span><span class="nx">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">:</span><span class="kr">number</span><span class="p">{</span>
+<span class="err"> </span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="generic">Generic</h5>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">getSize</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">arr</span><span class="p">:</span> <span class="nx">T</span><span class="p">[]):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getSize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getSize</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">([</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span><span class="p">]));</span>
+</code></pre></div></div>
+<h4 id="array-tuple">Array tuple</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">Member</span> <span class="o">=</span> <span class="p">[</span><span class="kr">number</span><span class="p">,</span> <span class="nx">boolean</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">john</span><span class="p">:</span><span class="nx">Member</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">];</span>
+</code></pre></div></div>
+<h4 id="class">class</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span><span class="kr">string</span><span class="p">;</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span><span class="kr">string</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="class-implements-with-interface">class implements with interface</h5>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Car</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">wheels</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nx">start</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Bmw</span> <span class="k">implements</span> <span class="nx">Car</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span><span class="nx">wheels</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">c</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">go..</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h5 id="type--imports-exports">type 전용 imports, exports</h5>
+<!--ankiQ-->
+<p>“./some-module.js” 에서 SomeThing 타입만 import 하고 싶은 경우 어떻게 해야 합니까?</p>
+<!--ankiA-->
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="kd">type</span> <span class="p">{</span> <span class="nx">SomeThing</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./some-module.js</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">type</span> <span class="p">{</span> <span class="nx">SomeThing</span> <span class="p">};</span>
+</code></pre></div></div>
+<!--ankiE-->
+<!--ID: 1664943651422-->
+<!--ankiQ-->
+<p>typescript에서, interface와 type alias의 차이점은 무엇입니까?</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Point</span> <span class="p">{</span>
+  <span class="nl">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">Point</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+<!--ankiA-->
+<ol>
+<li>오브젝트의 모양을 기술하기 위해 사용될 수 있으나 신택스가 다르다.</li>
+<li>인터페이스와 다르게, type alias는 primitives, union, tuple 에도 사용될 수 있다.</li>
+</ol>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// primitive</span>
+<span class="kd">type</span> <span class="nx">Name</span> <span class="o">=</span> <span class="kr">string</span><span class="p">;</span>
+
+<span class="c1">// object</span>
+<span class="kd">type</span> <span class="nx">PartialPointX</span> <span class="o">=</span> <span class="p">{</span> <span class="na">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">};</span>
+<span class="kd">type</span> <span class="nx">PartialPointY</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="c1">// union</span>
+<span class="kd">type</span> <span class="nx">PartialPoint</span> <span class="o">=</span> <span class="nx">PartialPointX</span> <span class="o">|</span> <span class="nx">PartialPointY</span><span class="p">;</span>
+
+<span class="c1">// tuple</span>
+<span class="kd">type</span> <span class="nx">Data</span> <span class="o">=</span> <span class="p">[</span><span class="kr">number</span><span class="p">,</span> <span class="kr">string</span><span class="p">];</span>
+</code></pre></div></div>
+<ol>
+<li>확장을 위한 신택스가 다르다.</li>
+</ol>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">PartialPointX</span> <span class="p">{</span> <span class="nl">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">}</span>
+<span class="kr">interface</span> <span class="nx">Point</span> <span class="kd">extends</span> <span class="nx">PartialPointX</span> <span class="p">{</span> <span class="nl">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">PartialPointX</span> <span class="o">=</span> <span class="p">{</span> <span class="na">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">};</span>
+<span class="kd">type</span> <span class="nx">Point</span> <span class="o">=</span> <span class="nx">PartialPointX</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">};</span>
+</code></pre></div></div>
+<ol>
+<li>type alias에서 union 사용 시 class implement에 사용할 수 없다.</li>
+</ol>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">PartialPoint</span> <span class="o">=</span> <span class="p">{</span> <span class="na">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">}</span> <span class="o">|</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="c1">// FIXME: can not implement a union type</span>
+<span class="kd">class</span> <span class="nx">SomePartialPoint</span> <span class="k">implements</span> <span class="nx">PartialPoint</span> <span class="p">{</span>
+  <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><a href="https://stackoverflow.com/questions/37233735/interfaces-vs-types-in-typescript">Interfaces vs Types in TypeScript - Stack Overflow</a></p>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces">TypeScript: Documentation - Everyday Types</a></p>
+<!--ankiE-->
+<!--ID: 1664295816666-->
+<h2 id="handbook">Handbook</h2>
+<p><a href="https://www.typescriptlang.org/docs/handbook/intro.html">TypeScript: Handbook - The TypeScript Handbook</a></p>
+<p>프로그래밍 커뮤니티에 소개된 지 20년이 지나, 자바스크립트는 가장 널리 퍼진 크로스 플랫폼 언어가 되었다. 웹페이지에 사소한 상호작용을 넣기 위한 작은 스크립팅 언어로 시작하여, 자바스크립트는 규모에 상관없이, 프트엔드든 백엔드든 선택할 수 있는 언어까지 성장했습니다.</p>
+<h2 id="dts-">d.ts 파일이란?</h2>
+<p>type을 정의하기 위해 존재하는 파일.</p>
+<h2 id="to-do">to do</h2>
+<p>abstract class
+접근 제한자 (public, private, protected)</p>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html">https://www.typescriptlang.org/docs/handbook/2/narrowing.html</a></p>
+<p><a href="https://www.youtube.com/watch?v=17Oh028Jpis&amp;list=PLZKTXPmaJk8KhKQ_BILr1JKCJbR0EGlx0&amp;index=6">https://www.youtube.com/watch?v=17Oh028Jpis&amp;list=PLZKTXPmaJk8KhKQ_BILr1JKCJbR0EGlx0&amp;index=6</a></p>
+<p>유틸리티 타입</p>
+<ul>
+<li>keyof</li>
+<li>partial</li>
+<li>required</li>
+<li>readonly</li>
+</ul>
+<h2 id="section-5">참고</h2>
+<ul>
+<li><a href="https://github.com/basarat/typescript-book">https://github.com/basarat/typescript-book</a>
+<ul>
+<li>타입스크립트</li>
+</ul>
+</li>
+<li><a href="https://github.com/type-challenges/type-challenges">type-challenges/type-challenges: Collection of TypeScript type challenges with online judge</a>
+<ul>
+<li>타입 정의 문제들</li>
+</ul>
+</li>
+<li><a href="https://www.youtube.com/watch?v=30LWjhZzg50">Learn TypeScript – Full Tutorial - YouTube</a></li>
+<li><a href="https://toss.tech/article/typescript-type-compatibility">TypeScript 타입 시스템 뜯어보기: 타입 호환성</a></li>
+</ul>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p><a href="https://velog.io/@grinding_hannah/TypeScript-nodemon-ts-node-%EB%AA%A8%EB%93%88-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0">[TypeScript] nodemon, ts-node 모듈 설치하기</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p><a href="https://inpa.tistory.com/entry/TS-%F0%9F%93%98-TypeScript-%EC%86%8C%EA%B0%9C-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95-%EC%B4%9D%EC%A0%95%EB%A6%AC-tsconfig">[TS] 📘 TypeScript 소개 &amp; 개발 환경 구성하기</a> <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn3">
+<p><a href="https://blog.siner.io/2022/02/19/node-vs-ts-node/">node와 ts-node의 CPU,RAM 사용량 비교</a> <a href="#fnref3" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

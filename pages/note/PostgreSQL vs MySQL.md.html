@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PostgreSQL vs MySQL | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="PostgreSQL vs MySQL" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="공통점" />
+<meta property="og:description" content="공통점" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/PostgreSQL%20vs%20MySQL.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/PostgreSQL%20vs%20MySQL.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-12T15:56:47+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PostgreSQL vs MySQL" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:21+09:00","datePublished":"2022-10-12T15:56:47+09:00","description":"공통점","headline":"PostgreSQL vs MySQL","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/PostgreSQL%20vs%20MySQL.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/PostgreSQL%20vs%20MySQL.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>PostgreSQL vs MySQL</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-12 15:56 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">공통점</a></li>
+<li class="toc-entry toc-h2"><a href="#section-1">차이점</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <h2 id="section">공통점</h2>
+<p>SQL을 기반으로 한다.</p>
+<p>JSON을 지원한다.</p>
+<h2 id="section-1">차이점</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="right">MySQL</th>
+<th align="left">PostgreSQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>랭킹 점수<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></td>
+<td align="right">1236</td>
+<td align="left">622</td>
+</tr>
+<tr>
+<td>데이터베이스 유형</td>
+<td align="right">관계형</td>
+<td align="left">객체 관계형</td>
+</tr>
+<tr>
+<td>Materialised views<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">X</td>
+<td align="left">O</td>
+</tr>
+<tr>
+<td>Table Inheritance<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">X</td>
+<td align="left">O</td>
+</tr>
+<tr>
+<td>Data types<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">Standard only</td>
+<td align="left">Advanced(arrays, hstore, user-defined)</td>
+</tr>
+<tr>
+<td>MVCC<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">limited(in InnoDB)</td>
+<td align="left">Full</td>
+</tr>
+<tr>
+<td>Performance<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">reliable, simple, faster</td>
+<td align="left">slower, more complex</td>
+</tr>
+<tr>
+<td>License</td>
+<td align="right">GPL(Community)[^mysql-license]</td>
+<td align="left">PostgreSQL License(BSD, MIT 와 유사)[^pg-license]</td>
+</tr>
+<tr>
+<td>주요 오퍼레이션<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">읽기, 쓰기와 같은 간단한</td>
+<td align="left">크고 복잡한</td>
+</tr>
+<tr>
+<td>커넥션 단위<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></td>
+<td align="right">쓰레드</td>
+<td align="left">프로세스</td>
+</tr>
+</tbody>
+</table>
+<p>PostgreSQL의 장점 기능들도 MySQL이 8.0으로 버전업하면서 많이 흡수했다고 한다.<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup></p>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p><a href="https://db-engines.com/en/ranking/relational+dbms">https://db-engines.com/en/ranking/relational+dbms</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p><a href="https://www.geeksforgeeks.org/difference-between-mysql-and-postgresql/">https://www.geeksforgeeks.org/difference-between-mysql-and-postgresql/</a> <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn3">
+<p><a href="https://uminoh.tistory.com/32">https://uminoh.tistory.com/32</a> <a href="#fnref3" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

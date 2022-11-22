@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SolidJS의 Router에서 a 태그와 Link 컴포넌트의 구분 | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="SolidJS의 Router에서 a 태그와 Link 컴포넌트의 구분" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SolidJS의 Router 문서를 보면 Link, NavLink 컴포넌트를 이용하라고 적혀있고, a 태그에 대한 내용은 없다." />
+<meta property="og:description" content="SolidJS의 Router 문서를 보면 Link, NavLink 컴포넌트를 이용하라고 적혀있고, a 태그에 대한 내용은 없다." />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%EC%9D%98%20Router%EC%97%90%EC%84%9C%20a%20%ED%83%9C%EA%B7%B8%EC%99%80%20Link%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98%20%EA%B5%AC%EB%B6%84.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%EC%9D%98%20Router%EC%97%90%EC%84%9C%20a%20%ED%83%9C%EA%B7%B8%EC%99%80%20Link%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98%20%EA%B5%AC%EB%B6%84.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-07T16:18:32+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SolidJS의 Router에서 a 태그와 Link 컴포넌트의 구분" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:20+09:00","datePublished":"2022-10-07T16:18:32+09:00","description":"SolidJS의 Router 문서를 보면 Link, NavLink 컴포넌트를 이용하라고 적혀있고, a 태그에 대한 내용은 없다.","headline":"SolidJS의 Router에서 a 태그와 Link 컴포넌트의 구분","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%EC%9D%98%20Router%EC%97%90%EC%84%9C%20a%20%ED%83%9C%EA%B7%B8%EC%99%80%20Link%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98%20%EA%B5%AC%EB%B6%84.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%EC%9D%98%20Router%EC%97%90%EC%84%9C%20a%20%ED%83%9C%EA%B7%B8%EC%99%80%20Link%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98%20%EA%B5%AC%EB%B6%84.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>SolidJS의 Router에서 a 태그와 Link 컴포넌트의 구분</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-07 16:18 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p>SolidJS의 Router 문서를 보면 <code>Link</code>, <code>NavLink</code> 컴포넌트를 이용하라고 적혀있고, <code>a</code> 태그에 대한 내용은 없다.</p>
+<p>Solid-router 의 컴포넌트 소스를 보면,</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">Link</span><span class="p">(</span><span class="nx">props</span><span class="p">:</span> <span class="nx">LinkProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">to</span> <span class="o">=</span> <span class="nx">useResolvedPath</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">props</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nc">LinkBase</span> <span class="si">{</span><span class="p">...</span><span class="nx">props</span><span class="si">}</span> <span class="na">to</span><span class="p">=</span><span class="si">{</span><span class="nx">to</span><span class="p">()</span><span class="si">}</span> <span class="p">/&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">LinkBase</span><span class="p">(</span><span class="nx">props</span><span class="p">:</span> <span class="nx">LinkBaseProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[,</span> <span class="nx">rest</span><span class="p">]</span> <span class="o">=</span> <span class="nx">splitProps</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">children</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">to</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">href</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">state</span><span class="dl">"</span><span class="p">]);</span>
+  <span class="kd">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">useHref</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">props</span><span class="p">.</span><span class="nx">to</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="si">{</span><span class="p">...</span><span class="nx">rest</span><span class="si">}</span> <span class="na">href</span><span class="p">=</span><span class="si">{</span><span class="nx">href</span><span class="p">()</span> <span class="o">||</span> <span class="nx">props</span><span class="p">.</span><span class="nx">href</span><span class="si">}</span> <span class="na">state</span><span class="p">=</span><span class="si">{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">state</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>state를 전달하는 것을 제외하면 a링크 태그와 다를 것이 없음을 알 수 있다.</p>
+<p><code>noScroll, replace</code> 같은 <code>Link</code> 컴포넌트만의 속성들도 그대로 a 태그에 전달되며, 실제로 <code>Link</code> 컴포넌트가 렌더링 된 모습도 a 태그와 거의 동일하다.</p>
+<p>React에서는 a 태그와 <code>Link</code> 컴포넌트가 많이 달라 주의해서 써야 하는 것 같지만, 적어도 Solid 에서는 그렇게 엄격하게 구분할 필요가 없어보이며, 앱 내부 경로로 이동할 때 <code>Link</code> 컴포넌트, 앱 외부 경로로 이동할 때 a 태그를 쓰면 될듯.</p>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

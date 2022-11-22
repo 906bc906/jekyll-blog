@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SolidJS - Bindings - Refs | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="SolidJS - Bindings - Refs" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://www.solidjs.com/tutorial/bindings_refs" />
+<meta property="og:description" content="https://www.solidjs.com/tutorial/bindings_refs" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Bindings%20-%20Refs.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Bindings%20-%20Refs.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T00:18:37+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SolidJS - Bindings - Refs" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:21+09:00","datePublished":"2022-10-10T00:18:37+09:00","description":"https://www.solidjs.com/tutorial/bindings_refs","headline":"SolidJS - Bindings - Refs","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Bindings%20-%20Refs.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Bindings%20-%20Refs.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>SolidJS - Bindings - Refs</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 00:18 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">문제</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://www.solidjs.com/tutorial/bindings_refs">https://www.solidjs.com/tutorial/bindings_refs</a></p>
+<p>2022년 10월 5일 기준, 위 주소의 애니메이션 테스트를 하기 위해서는 <a href="https://github.com/solidjs/solid-docs/issues/188">css 파일의 로고 주소를 편집해야 합니다.</a></p>
+<p>JSX는 실제 DOM 엘리먼트를 생성하기 때문에, Solid에서는 항상 할당을 통해 DOM에 대한 레퍼런스를 얻을 수 있다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">myDiv</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>My Element<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+</code></pre></div></div>
+<p>예를 들면 위와 같다.</p>
+<p>하지만 엘리먼트를 분리하지 않고 하나의 연속된 JSX 템플릿에 넣는 경우 Solid가 생성시 최적화를 더 잘할 수 있다는 이점이 있다.</p>
+<p>Solid에서는 ref 속성을 사용해 엘리먼트에 대헌 레퍼런스를 얻을 수 있다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">myDiv</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">myDiv</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">My</span> <span class="nx">Element</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span></code></pre></div></div>
+<p>위와 같이 변수를 선언하고, ref 속성에 전달하기만 하면 변수가 할당된다.</p>
+<p>문서의 DOM에 첨부되기 전에 생성될 때 할당이 발생한다. 생성 전에는 할당되지 않으므로 필요한 경우 onMount 등과 같이 쓰는 것이 좋다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">el</span> <span class="o">=&gt;</span> <span class="cm">/* do something with el... */</span><span class="si">}</span><span class="p">&gt;</span>My Element<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></div>
+<p>레퍼런스는 콜백 함수의 형태로도 사용 가능한데, 엘리먼트가 첨부될 때까지 기다릴 필요 없이 로직을 캡슐화할 때 편리하다.</p>
+<h2 id="section">문제</h2>
+<p>TARGET DECK
+전체::개발::solid</p>
+<hr />
+<!--ankiQ-->
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">canvas</span><span class="p">;</span>
+
+	<span class="kd">const</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">);</span>
+	<span class="kd">let</span> <span class="nx">frame</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">loop</span><span class="p">);</span>
+
+	<span class="kd">function</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">frame</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">loop</span><span class="p">);</span>
+
+		<span class="kd">const</span> <span class="nx">imageData</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+		<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;</span> <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kd">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">/</span> <span class="mi">4</span><span class="p">;</span>
+			<span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">%</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+			<span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span><span class="p">;</span>
+
+			<span class="kd">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="nx">x</span><span class="p">)</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">);</span>
+			<span class="kd">const</span> <span class="nx">g</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="nx">y</span><span class="p">)</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">);</span>
+			<span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+
+			<span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+			<span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
+			<span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
+			<span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+		<span class="p">}</span>
+
+		<span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="nx">onCleanup</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">cancelAnimationFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">));</span>
+
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">width</span><span class="p">=</span><span class="s">"256"</span> <span class="na">height</span><span class="p">=</span><span class="s">"256"</span> <span class="p">/&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 Solid 코드는 리턴할 캔버스를 편집하여 애니메이션을 적용하는 것이 목적이다.</p>
+<p>하지만 canvas 참조를 가져오지 못하고 있는 상황이다.</p>
+<p>가장 간단한 것은 <code>canvas = document.querySelector(&quot;canvas#ok&quot;);</code> 와 같이 DOM API로 canvas를 가져오는 것이겠으나, 모종의 이유로 (엘리먼트를 중복 배치하여 쿼리 셀렉터로 고르기 애매한 상황이라거나) 이를 사용할 수 없다면, 반환할 canvas를 지정하기 위해서는 어떻게 해야겠는가?</p>
+<!--ankiA-->
+<ol>
+<li>const ctx=~ 절부터 onMount로 감싼다.</li>
+<li>ref 지정
+<ul>
+<li><code>return &lt;canvas ref={canvas} width=&quot;256&quot; height=&quot;256&quot; /&gt;;</code></li>
+</ul>
+</li>
+</ol>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">canvas</span><span class="p">;</span>
+  <span class="nx">onMount</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="c1">// &lt;-- 1</span>
+    <span class="kd">const</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">frame</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">loop</span><span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">frame</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">loop</span><span class="p">);</span>
+
+      <span class="kd">const</span> <span class="nx">imageData</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;</span> <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">/</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">%</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="kd">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="nx">x</span><span class="p">)</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">g</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="nx">y</span><span class="p">)</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+
+        <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+        <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
+        <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
+        <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">onCleanup</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">cancelAnimationFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">));</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">canvas</span><span class="si">}</span> <span class="na">width</span><span class="p">=</span><span class="s">"256"</span> <span class="na">height</span><span class="p">=</span><span class="s">"256"</span> <span class="p">/&gt;;</span> <span class="c1">//&lt;-- 2</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<!--ankiE-->
+<!--ID: 1664962643991-->
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

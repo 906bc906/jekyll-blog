@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SolidJS - Introduction - Memos | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="SolidJS - Introduction - Memos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://www.solidjs.com/tutorial/introduction_memos" />
+<meta property="og:description" content="https://www.solidjs.com/tutorial/introduction_memos" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Introduction%20-%20Memos.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Introduction%20-%20Memos.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T00:09:50+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SolidJS - Introduction - Memos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-17T01:31:47+09:00","datePublished":"2022-10-10T00:09:50+09:00","description":"https://www.solidjs.com/tutorial/introduction_memos","headline":"SolidJS - Introduction - Memos","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Introduction%20-%20Memos.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Introduction%20-%20Memos.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>SolidJS - Introduction - Memos</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 00:09 +09:00
+      <br/>
+      
+        수정일
+        2022-11-17 01:31 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">문제</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://www.solidjs.com/tutorial/introduction_memos">https://www.solidjs.com/tutorial/introduction_memos</a></p>
+<p>때로는 중복 작업을 줄이기 위해 값을 캐시할 필요가 있다. 이때 메모(Memo)를 사용하여 함수 실행 결과를 디펜던시가 변경될 때까지 캐시할 수 있다. 다른 디펜던시가 있는 이펙트에 대한 계산을 캐싱하고, DOM 노드 생성과 같은 값비싼 작업에 필요한 작업을 완화하는데 도움이 된다.</p>
+<p>메모는 이펙트와 같은 옵저버이면서, 읽기 전용 시그널이다. Memo는 자신의 디펜던시와 옵저버를 모두 알고 있기 때문에, 변경이 일어난 경우 한 번만 실행되도록 할 수 있다. <em>이 때문에 시그널에 이펙트 설정을 등록하는 것이 좋다.</em>??</p>
+<p><code>solid-js</code>에서 <code>createMemo</code>를 import하여 메모를 생성할 수 있다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fib</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nx">count</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Count</span><span class="p">:</span> <span class="p">{</span><span class="nx">count</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">6</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">7</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">8</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">9</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="mi">10</span><span class="p">.</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span> <span class="p">{</span><span class="nx">fib</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+</code></pre></div></div>
+<p>위의 반환문은 파생된 시그널인 fib 를 50번 불러오고 있다. fib는 count를 구독하고 있어, count 시그널이 변경될 때마다 fib가 50번 실행될 것이다. 이때 연산을 줄이기 위해 memo로 값을 캐싱하여, count 시그널이 업데이트 된 최초의 1번에만 계산되고 나머지는 캐싱된 값을 쓰도록 할 수 있다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fib</span> <span class="o">=</span> <span class="nx">createMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nx">count</span><span class="p">()));</span>
+</code></pre></div></div>
+<hr />
+<h2 id="section">문제</h2>
+<p>TARGET DECK
+전체::개발::solid</p>
+<!--ankiQ-->
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fib</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nx">count</span><span class="p">());</span>
+</code></pre></div></div>
+<p>위 함수는 count 시그널을 구독하고 있는데, fib 함수를 이곳 저곳에서 굉장히 많이 불러 중복 연산되고 있다.</p>
+<p>count 시그널이 업데이트 된 최초의 1번에만 계산하고 그 뒤로는 처음 계산 값을 그대로 사용해도 된다면, 코드를 어떻게 수정하여 중복 연산을 줄일 수 있겠는가?</p>
+<!--ankiA-->
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fib</span> <span class="o">=</span> <span class="nx">createMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nx">count</span><span class="p">()));</span>
+</code></pre></div></div>
+<!--ankiE-->
+<!--ID: 1664946251797-->
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

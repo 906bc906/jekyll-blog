@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Next.js 는 무엇이며, 왜 써야 하는가 | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Next.js 는 무엇이며, 왜 써야 하는가" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Next.js 란?" />
+<meta property="og:description" content="Next.js 란?" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-21T12:31:01+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Next.js 는 무엇이며, 왜 써야 하는가" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:21+09:00","datePublished":"2022-11-21T12:31:01+09:00","description":"Next.js 란?","headline":"Next.js 는 무엇이며, 왜 써야 하는가","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>Next.js 는 무엇이며, 왜 써야 하는가</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-11-21 12:31 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#nextjs-">Next.js 란?</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#section">블록?</a></li>
+<li class="toc-entry toc-h3"><a href="#react">React?</a></li>
+<li class="toc-entry toc-h3"><a href="#nextjs">그래서, Next.js</a></li>
+<li class="toc-entry toc-h3"><a href="#section-1">학습은?</a></li>
+</ol>
+</li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <h2 id="nextjs-">Next.js 란?</h2>
+<p>Next.js는 유연한 React 프레임워크입니다. 여러 가지 블록을 제공하여 빠르게 웹 애플리케이션을 만들 수 있게 합니다.</p>
+<h3 id="section">블록?</h3>
+<ul>
+<li>사용자 인터페이스</li>
+<li>라우팅</li>
+<li>데이터 fetch</li>
+<li>렌더링</li>
+<li>통합 (Intergrations)</li>
+<li>인프라스트럭쳐</li>
+<li>퍼포먼스</li>
+<li>확장성</li>
+<li>개발자 경험</li>
+</ul>
+<p>애플리케이션의 각 부분에 대해 어떤 솔루션을 적용할지 고민할 필요 없이 Next.js 에서 제공하는 것들을 가져다 쓰면 됩니다.</p>
+<h3 id="react">React?</h3>
+<p>인터랙티브 유저 인터페이스를 만들기 위한 자바스크립트 라이브러리입니다. 그러나 완전한 React 애플리케이션을 처음부터 구축하는 데에는 시간과 노력이 필요합니다.</p>
+<h3 id="nextjs">그래서, Next.js</h3>
+<p>Next.js는 React 프레임워크로, 빌딩 블록을 제공하여 이러한 노력을 최소화해줍니다.</p>
+<h3 id="section-1">학습은?</h3>
+<p>Next.js 를 효과적으로 사용하기 위해서는 Javascript, React 및 웹 개발 관련 개념에 익숙해지는 것이 도움이 됩니다.</p>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

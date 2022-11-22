@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://906bc906.github.io/jekyll-blog/feed/pages.xml" rel="self" type="application/atom+xml" /><link href="https://906bc906.github.io/jekyll-blog/" rel="alternate" type="text/html" /><updated>2022-11-22T21:14:55+09:00</updated><id>https://906bc906.github.io/jekyll-blog/feed/pages.xml</id><title type="html">906bc906 | Pages</title><subtitle>Second, and Public brain of 906bc906</subtitle><entry><title type="html">Next.js 13 App Dir 도입을 포기하게 된 이유</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20%EB%8F%84%EC%9E%85%EC%9D%84%20%ED%8F%AC%EA%B8%B0%ED%95%98%EA%B2%8C%20%EB%90%9C%20%EC%9D%B4%EC%9C%A0.md" rel="alternate" type="text/html" title="Next.js 13 App Dir 도입을 포기하게 된 이유" /><published>2022-11-22T19:52:11+09:00</published><updated>2022-11-22T19:52:44+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20%EB%8F%84%EC%9E%85%EC%9D%84%20%ED%8F%AC%EA%B8%B0%ED%95%98%EA%B2%8C%20%EB%90%9C%20%EC%9D%B4%EC%9C%A0</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20%EB%8F%84%EC%9E%85%EC%9D%84%20%ED%8F%AC%EA%B8%B0%ED%95%98%EA%B2%8C%20%EB%90%9C%20%EC%9D%B4%EC%9C%A0.md"><![CDATA[<p>Next.js 13에 AppDir 이라는 새로운 디렉토리 구조가 도입되었다. 학습용으로 임시 리포지토리를 만들었을 때는 굉장히 편했기에 그룹 프로젝트에도 이를 도입하려고 했으나 Styled-Component 에 문제가 발생하여 도입을 포기하게 되었다.</p>
+<p>Next.js 13에 관한 nextjs 공식 블로그의 글은 아래 링크에서 확인할 수 있다: <a href="https://nextjs.org/blog/next-13">Blog - Next.js 13 | Next.js</a></p>
+<p>Next.js 13의 기능들을 쉽게 설명해주는 영상</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=6aP9nyTcd44">https://www.youtube.com/watch?v=6aP9nyTcd44</a></li>
+<li><a href="https://github.com/906bc906/practice/tree/nextjs/sonny-13-tutorial">https://github.com/906bc906/practice/tree/nextjs/sonny-13-tutorial</a>
+<ul>
+<li>위의 영상을 보고 작성한 코드</li>
+</ul>
+</li>
+</ul>
+<h2 id="nextjs-13-appdir">Next.js 13 AppDir</h2>
+<h3 id="nextjs--">기존 Next.js 는 어땠는데</h3>
+<p><a href="https://nextjs.org/docs/routing/introduction">Routing: Introduction | Next.js</a></p>
+<p>기존 Next.js 는 pages directory 를 기반으로 라우팅했다.</p>
+<p>아래 예시를 본다면 대강 무슨 느낌인지 이해가 될 것이다.</p>
+<ul>
+<li><code>pages/index.js</code> → <code>/</code></li>
+<li><code>pages/blog/index.js</code> → <code>/blog</code></li>
+<li><code>pages/blog/first-post.js</code> → <code>/blog/first-post</code></li>
+<li><code>pages/dashboard/settings/username.js</code> → <code>/dashboard/settings/username</code></li>
+<li><code>pages/blog/[slug].js</code> → <code>/blog/:slug</code> (<code>/blog/hello-world</code>)</li>
+<li><code>pages/[username]/settings.js</code> → <code>/:username/settings</code> (<code>/foo/settings</code>)</li>
+<li><code>pages/post/[...all].js</code> → <code>/post/*</code> (<code>/post/2020/id/title</code>)</li>
+</ul>
+<p>또한 <code>pages/</code> 아래에 <code>_app.js</code> 와 <code>_document.js</code> 를 두어 페이지를 초기화하고 페이지 렌더링에 사용되는 html, body 태그를  업데이트하는 데 사용했다.</p>
+<ul>
+<li><code>pages/blog/first-post.js</code> → <code>/blog/first-post</code></li>
+</ul>
+<p>이 사례를 보면 알겠지만 <code>pages</code> 디렉토리 아래에 있는 모든 파일을 다 라우팅하기 때문에, 컴포넌트 파일들을 <code>pages</code> 디렉토리 아래에 둘 수가 없다. 이를 해결하기 위해서는 <code>pages</code> 디렉토리가 아닌 별도의 <code>components</code> 디렉토리를 만들어야 하고 이는 해당 컴포넌트들이 어느 페이지에 사용되는지 파악하기 어렵게 한다.</p>
+<h3 id="nextjs-13-appdir-">Next.js 13의 AppDir은 어떻길래</h3>
+<p><a href="https://beta.nextjs.org/docs/routing/fundamentals">Routing: Fundamentals | Next.js</a></p>
+<p><code>app</code> 디렉토리 아래에 있는 파일들을 라우팅에 사용한다는 골자는 여전하나, 내부의 컴포넌트 동작 방식이나 라우팅에 사용되는 파일들이 바뀌었다.</p>
+<p>먼저 디렉토리의 경우,</p>
+<ul>
+<li>그냥 이름을 짓는다면 평범하게 라우팅된다.
+<ul>
+<li><code>app/dashboard</code> -&gt; <code>/dashboard</code></li>
+</ul>
+</li>
+<li>이전과 마찬가지로 다이나믹 라우팅을 할 수 있다.
+<ul>
+<li><code>app/dashboard/[id]</code> -&gt; <code>/dashboard:id</code></li>
+</ul>
+</li>
+<li><strong>NEW</strong> <a href="https://beta.nextjs.org/docs/routing/defining-routes#route-groups">라우트 그룹</a>이라는 개념이 추가되었다.
+<ul>
+<li><code>app/(marketing)/about</code> -&gt; <code>/about</code></li>
+<li>URL 패턴에는 영향을 미치지 않으면서 관심사별로 묶을 수가 있다.</li>
+<li>레이아웃(추후에 소개)을 분리할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p>라우트 그룹은 써봤을 때 정말 편리하다고 느꼈다.</p>
+<p>파일의 경우, 일단 있기만 하면 path에 무조건 매칭되던 전과 크게 다르다.</p>
+<ul>
+<li>page.tsx
+<ul>
+<li>index.js 와 비슷한 역할을 한다.</li>
+<li>해당 라우트로 도착했을 때 보여야 하는 페이지.</li>
+</ul>
+</li>
+<li>layout.tsx
+<ul>
+<li>해당 라우트를 기점으로 레이아웃을 설정한다.</li>
+<li>레이아웃 아래에 children 항목을 가져야 한다.</li>
+<li>하위 항목으로 네비게이션하는 동안은 레이아웃의 상태가 보존되고 리렌더링되지 않는다.</li>
+</ul>
+</li>
+<li>loading.tsx
+<ul>
+<li>suspense fallback과 비슷한 역할을 한다.</li>
+<li>data 를 fetch하는 동안 해당 data를 사용하는 컴포넌트 영역에 대신 표시되는데, 별도의 suspense 설정 없이 알아서 출력됨.</li>
+</ul>
+</li>
+<li>error.tsx(e.g not-found.tsx)
+<ul>
+<li>지정한 에러가 발생하는 경우 해당 파일을 대신 출력한다.</li>
+</ul>
+</li>
+<li>template.tsx
+<ul>
+<li>레이아웃과 비슷한데 라우팅할 때마다 재생성되는듯. (안써봐서 확실하지 않음)</li>
+</ul>
+</li>
+<li>head.tsx
+<ul>
+<li>title이나 meta 같은 head 값을 overwrite 한다.</li>
+</ul>
+</li>
+</ul>
+<p>이제 해당 디렉토리 안에 컴포넌트를 집어넣어도 해당 디렉토리 경로로는 page.tsx 만 퍼블릭하기 때문에 컴포넌트가 매칭되는 일이 없다는 점, 이로 인해 페이지 디렉토리별로 컴포넌트를 관리할 수 있다는 점이 꽤 크다.</p>
+<h3 id="nextjs-13-appdir--">Next.js 13 AppDir의 추가적인 변경점</h3>
+<ul>
+<li>React 18에서 도입된 Server Component 를 기본적으로 사용한다.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>
+<ul>
+<li>이전에는 Client Component 가 기본이었으며 여기에 <code>getServerSideProps</code> 를 붙일 때와는 동작 방식이 다름</li>
+</ul>
+</li>
+<li>Server Components의 <code>fetch</code> 동작 방식이 달라져 이를 통해 SSR, SSG, ISR을 쉽게 구현할 수 있음.
+<ul>
+<li><a href="Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md">Next.js 13 App Dir SSR, SSG, ISR</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="section">그래서 왜 포기 했는데</h2>
+<blockquote>
+<p>React 18에서 도입된 Server Component 를 기본적으로 사용한다</p>
+</blockquote>
+<p>이 부분이 컸다. 결론만 말하면 프로젝트에서 스타일링에 사용하는 <code>emotion</code> + <code>styled-components</code> 를 쓸 수 없다.</p>
+<h3 id="server-component-styled-components">Server Component, Styled-Components</h3>
+<p><code>emotion</code>과 <code>styled-components</code> 는 스타일시트를 관리하고, ThemeProvider에 <code>React.createContext</code>를 사용한다.</p>
+<p>React 18 의 Server Component는 state, context를 비롯한 hook을 사용할 수 없다.</p>
+<p>Next.js의 AppDir는 기본적으로 React18의 Server Component 를 사용하기 때문에, hook을 사용하는 라이브러리를 사용할 수 없다.</p>
+<p><a href="https://github.com/vercel/next.js/issues/41958">https://github.com/vercel/next.js/issues/41958</a></p>
+<p>위의 이슈에 달린 <a href="https://github.com/vercel/next.js/issues/41958#issuecomment-1294063309">댓글</a>을 보면 알 수 있듯 이는 버그가 아니라 의도된 행동이며 스타일링 라이브러리에서 Server Component를 지원해야 한다.</p>
+<p>정 Next.js 13의 AppDir 에서 context를 쓰는 css-in-js를 쓰고 싶다면, 해당 라이브러리를 쓰는 모든 컴포넌트에 <code>use client</code> 선언문으로 Client Component 로 전환해야 한다.</p>
+<p>스타일링해야 하는 컴포넌트 태반을 CSR 로 돌릴거라면 Next.js를 써야될 의미가.. 있을까? 그렇다고 해서 모든 스타일을 정적 CSS로 바꾸는 것도 소요 시간이 너무 크고 그렇다고 추후 작업 시간이 줄어드는 것도 아니고, 여러모로 애매해서 위의 이유로 4시간 정도 투자한 AppDir를 포기했다.</p>
+<h2 id="section-1">앞으로도 답 없나요?</h2>
+<blockquote>
+<p><strong>Note:</strong> We’re testing out different CSS-in-JS libraries and we’ll be adding more examples for libraries that support React 18 features and/or the <code>app</code> directory.</p>
+</blockquote>
+<p>Next.js에서 독자적인 CSS-in-JS 라이브러리를 테스트하고 있다고 한다. (아마도 <code>styled-jsx</code> 인듯)</p>
+<p>2022년 11월 기준으로는 아직까진 React 18 Server Component 를 지원하는 CSS-in-JS 라이브러리는 찾지 못 했다.</p>
+<h3 id="section-2">대안은?</h3>
+<ul>
+<li><a href="https://beta.nextjs.org/docs/styling/css-modules">CSS Modules</a></li>
+<li><a href="https://beta.nextjs.org/docs/styling/tailwind-css">Tailwind CSS</a></li>
+<li><a href="https://beta.nextjs.org/docs/styling/global-styles">Global Styles</a></li>
+<li><a href="https://beta.nextjs.org/docs/styling/css-in-js">CSS-in-JS</a></li>
+<li><a href="https://beta.nextjs.org/docs/styling/external-stylesheets">External Stylesheets</a></li>
+<li><a href="https://beta.nextjs.org/docs/styling/sass">Sass</a></li>
+</ul>
+<h2 id="css-in-js---appdir--">우린 CSS-in-JS 안 쓰는데 AppDir 한번 써볼까?</h2>
+<p>공식에서도 프로덕션에는 쓰지 말라는 의견을 남기기도 했고, <a href="https://beta.nextjs.org/docs/app-directory-roadmap">아직 지원하지 않는 기능</a>도 있기 때문에 아직은 보류하는 것이 좋아 보인다.</p>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p><a href="https://nextjs.org/blog/next-13#server-components">https://nextjs.org/blog/next-13#server-components</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content><author><name></name></author><summary type="html"><![CDATA[Next.js 13에 AppDir 이라는 새로운 디렉토리 구조가 도입되었다. 학습용으로 임시 리포지토리를 만들었을 때는 굉장히 편했기에 그룹 프로젝트에도 이를 도입하려고 했으나 Styled-Component 에 문제가 발생하여 도입을 포기하게 되었다.]]></summary></entry><entry><title type="html">Next.js</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Next.js.md" rel="alternate" type="text/html" title="Next.js" /><published>2022-11-22T18:57:51+09:00</published><updated>2022-11-22T20:09:21+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Next.js</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Next.js.md"><![CDATA[<ul>
+<li><a href="Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md">Next.js 는 무엇이며, 왜 써야 하는가</a></li>
+<li><a href="Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md">Next.js 13 App Dir SSR, SSG, ISR</a></li>
+<li><a href="Next.js%2013%20App%20Dir%20%EB%8F%84%EC%9E%85%EC%9D%84%20%ED%8F%AC%EA%B8%B0%ED%95%98%EA%B2%8C%20%EB%90%9C%20%EC%9D%B4%EC%9C%A0.md">Next.js 13 App Dir 도입을 포기하게 된 이유</a></li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Next.js 는 무엇이며, 왜 써야 하는가 Next.js 13 App Dir SSR, SSG, ISR Next.js 13 App Dir 도입을 포기하게 된 이유]]></summary></entry><entry><title type="html">Next.js 13 App Dir SSR, SSG, ISR</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md" rel="alternate" type="text/html" title="Next.js 13 App Dir SSR, SSG, ISR" /><published>2022-11-22T13:17:05+09:00</published><updated>2022-11-22T20:09:22+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%2013%20App%20Dir%20SSR,%20SSG,%20ISR.md"><![CDATA[<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Todo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../typings</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">type</span> <span class="nx">PageProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="na">todo</span><span class="p">:</span> <span class="nx">Todo</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">todo</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">TodoPage</span><span class="p">({</span> <span class="na">params</span><span class="p">:</span> <span class="p">{</span> <span class="nx">todoId</span> <span class="p">}}:</span> <span class="nx">PageProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetchTodo</span><span class="p">(</span><span class="nx">todoId</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">p-10 bg-yellow-200 border-2 m-2 shadow-lg</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+        <span class="err">#</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}:</span> <span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Completed</span><span class="p">:</span> <span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">Yes</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">No</span><span class="dl">"</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>      
+      <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">border-t border-black mt-5 text-right</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="nx">By</span> <span class="nx">User</span><span class="p">:</span> <span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">userId</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoPage</span>
+</code></pre></div></div>
+<p>현재 위의 코드는 Next.js 13의 App 디렉토리 구조에 배치되었다. Nest.js 13의 App 디렉토리 구조에서는 모든 컴포넌트가 기본적으로 React Server Components, 즉 SSR을 한다.[^default-ssr]</p>
+<p>위 코드를 바탕으로 Next.js 13의 App 디렉토리 구조에서 CSR, SSR, SSG, ISR을 하려면 어떻게 해야되는지 알아본다.</p>
+<p><a href="https://beta.nextjs.org/docs/rendering/static-and-dynamic-rendering#using-dynamic-functions">https://beta.nextjs.org/docs/rendering/static-and-dynamic-rendering#using-dynamic-functions</a></p>
+<p>client 컴포넌트와 server 컴포넌트에 대한 내용도 반드시 읽어보도록 한다: <a href="https://beta.nextjs.org/docs/rendering/server-and-client-components">https://beta.nextjs.org/docs/rendering/server-and-client-components</a></p>
+<h2 id="csr">CSR</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">'</span><span class="s1">use client</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Todo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../typings</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">...</span>
+</code></pre></div></div>
+<p>CSR을 하기 위해서는 <code>&quot;use client&quot;</code> 를 코드 최상단에 배치한다. import 전에 해야한다.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
+<p>이 뒤로 <code>useState</code>나 <code>useEffect</code> 같은 클라이언트 훅을 사용할 수 있다.</p>
+<p>클라이언트 훅이 없는 컴포넌트는 지시문 없이 그대로 두는 것이 가장 좋은데, 다른 클라이언트 컴포넌트에서 가져오지 않을 때 자동으로 서버 컴포넌트로 렌더링될 수 있도록 하기 위해서입니다. 이는 클라이언트측 Javascript를 최소한으로 줄일 수 있게 합니다.[^csr-leaves]</p>
+<p><code>use client</code> 선언문은 새로운 리액트 기능으로 소개되었으며 여전히 많은 리액트 서드 파티 패키지들은 Client-only 기능만 사용하는 경우가 많다. 이 경우 <a href="https://beta.nextjs.org/docs/rendering/server-and-client-components#third-party-packages">해당 페이지</a> 참고</p>
+<h2 id="ssr">SSR</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">cache</span><span class="p">:</span> <span class="dl">"</span><span class="s2">no-cache</span><span class="dl">"</span> <span class="p">}</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+<h2 id="ssg">SSG</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">cache</span><span class="p">:</span> <span class="dl">"</span><span class="s2">force-cache</span><span class="dl">"</span> <span class="p">}</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+<h3 id="prebuild">prebuild</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoPage</span>
+
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">generateStaticParams</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://jsonplaceholder.typicode.com/todos/</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">todos</span><span class="p">:</span> <span class="nx">Todo</span><span class="p">[]</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+  <span class="c1">//10 페이지만 prebuild함- 200개씩 API 날렸다가 API 제한 먹는걸 피하기 위해</span>
+  <span class="kd">const</span> <span class="nx">trimmedTodos</span> <span class="o">=</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+	<span class="c1">//리턴 형태: [{todoId: }, {todoId: }, ...]</span>
+  <span class="k">return</span> <span class="nx">trimmedTodos</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="na">todoId</span><span class="p">:</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span>
+  <span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>dynamic route 세그먼트를 미리 빌드할 수 있게 해주는 함수.<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></p>
+<h3 id="dynamicparams">dynamicParams</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Todo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../../typings</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">dynamicParams</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">//</span>
+
+<span class="kd">type</span> <span class="nx">PageProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">{</span>
+</code></pre></div></div>
+<p>generateStaticParams 에 의해 생성되지 않은 dynamic segment 에 방문했을 때의 행동을 정의함.</p>
+<ul>
+<li>true
+<ul>
+<li>default.</li>
+<li>그 때 그 때 생성함.</li>
+</ul>
+</li>
+<li>false
+<ul>
+<li>404 에러 반환.</li>
+</ul>
+</li>
+</ul>
+<h2 id="isr">ISR</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetchTodo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">todoId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://jsonplaceholder.typicode.com/todos/</span><span class="p">${</span><span class="nx">todoId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">next</span><span class="p">:</span> <span class="p">{</span> <span class="na">revalidate</span><span class="p">:</span> <span class="mi">60</span> <span class="p">}</span> <span class="p">}</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+<p>Incremental Static Regeneration</p>
+<p>SSR과 SSG의 적절한 중간 느낌. (뇌피셜)</p>
+<p>리퀘스트가 들어오면 페이지를 새로 만든다.</p>
+<p>위 코드를 기준으로, 만약 새로 페이지를 만든지 60초가 지나지 않았다면, 그 사이에 리퀘스트가 들어와도 새로 페이지를 만들지 않고 만들어놨던 페이지를 그대로 서빙한다.</p>
+<p>만약 60초가 지난 경우, 바로 페이지를 재생성하진 않고, 60초가 지난 뒤에 다시 리퀘스트가 온 경우에만 페이지를 재생성하고, 다시 60초를 돌린다.</p>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p><a href="https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components">https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p><a href="https://beta.nextjs.org/docs/api-reference/generate-static-params">https://beta.nextjs.org/docs/api-reference/generate-static-params</a> <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content><author><name></name></author><summary type="html"><![CDATA[import React from 'react' import { Todo } from '../../../typings';]]></summary></entry><entry><title type="html">Next.js 는 무엇이며, 왜 써야 하는가</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md" rel="alternate" type="text/html" title="Next.js 는 무엇이며, 왜 써야 하는가" /><published>2022-11-21T12:31:01+09:00</published><updated>2022-11-22T20:09:21+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Next.js%20%EB%8A%94%20%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0,%20%EC%99%9C%20%EC%8D%A8%EC%95%BC%20%ED%95%98%EB%8A%94%EA%B0%80.md"><![CDATA[<h2 id="nextjs-">Next.js 란?</h2>
+<p>Next.js는 유연한 React 프레임워크입니다. 여러 가지 블록을 제공하여 빠르게 웹 애플리케이션을 만들 수 있게 합니다.</p>
+<h3 id="section">블록?</h3>
+<ul>
+<li>사용자 인터페이스</li>
+<li>라우팅</li>
+<li>데이터 fetch</li>
+<li>렌더링</li>
+<li>통합 (Intergrations)</li>
+<li>인프라스트럭쳐</li>
+<li>퍼포먼스</li>
+<li>확장성</li>
+<li>개발자 경험</li>
+</ul>
+<p>애플리케이션의 각 부분에 대해 어떤 솔루션을 적용할지 고민할 필요 없이 Next.js 에서 제공하는 것들을 가져다 쓰면 됩니다.</p>
+<h3 id="react">React?</h3>
+<p>인터랙티브 유저 인터페이스를 만들기 위한 자바스크립트 라이브러리입니다. 그러나 완전한 React 애플리케이션을 처음부터 구축하는 데에는 시간과 노력이 필요합니다.</p>
+<h3 id="nextjs">그래서, Next.js</h3>
+<p>Next.js는 React 프레임워크로, 빌딩 블록을 제공하여 이러한 노력을 최소화해줍니다.</p>
+<h3 id="section-1">학습은?</h3>
+<p>Next.js 를 효과적으로 사용하기 위해서는 Javascript, React 및 웹 개발 관련 개념에 익숙해지는 것이 도움이 됩니다.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Next.js 란?]]></summary></entry><entry><title type="html">draft notes</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/draft%20notes.md" rel="alternate" type="text/html" title="draft notes" /><published>2022-11-17T02:42:36+09:00</published><updated>2022-11-22T20:09:22+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/draft%20notes</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/draft%20notes.md"><![CDATA[<pre><code class="language-dataview">>TABLE WITHOUT ID  file.link AS title
+FROM -&quot;templates&quot;
+SORT file.mtime desc, tags
+WHERE draft
+</code></pre>]]></content><author><name></name></author><summary type="html"><![CDATA[>TABLE WITHOUT ID file.link AS title FROM -&quot;templates&quot; SORT file.mtime desc, tags WHERE draft]]></summary></entry><entry><title type="html">메모장과 블로그의 경계선 사이에서</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/%EB%A9%94%EB%AA%A8%EC%9E%A5%EA%B3%BC%20%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%9D%98%20%EA%B2%BD%EA%B3%84%EC%84%A0%20%EC%82%AC%EC%9D%B4%EC%97%90%EC%84%9C.md" rel="alternate" type="text/html" title="메모장과 블로그의 경계선 사이에서" /><published>2022-11-17T01:40:16+09:00</published><updated>2022-11-22T20:09:20+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/%EB%A9%94%EB%AA%A8%EC%9E%A5%EA%B3%BC%20%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%9D%98%20%EA%B2%BD%EA%B3%84%EC%84%A0%20%EC%82%AC%EC%9D%B4%EC%97%90%EC%84%9C</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/%EB%A9%94%EB%AA%A8%EC%9E%A5%EA%B3%BC%20%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%9D%98%20%EA%B2%BD%EA%B3%84%EC%84%A0%20%EC%82%AC%EC%9D%B4%EC%97%90%EC%84%9C.md"><![CDATA[<h2 id="section">글을 쓰긴 쓰는데요</h2>
+<p>글을 옵시디언으로 관리하기 시작한지는 6개월 정도, 블로그로 내보낸지는 1달 정도 된 것 같다. 옵시디언이라는 툴 자체는 좋지만 이것을 체계적으로 관리하는 데에는 계속 어려움을 겪어 왔다. (<a href="%EB%B8%94%EB%A1%9C%EA%B7%B8%EB%A5%BC%20%EB%A7%8C%EB%93%A4%EA%B8%B0%EA%B9%8C%EC%A7%80.md">블로그를 만들기까지</a>)</p>
+<p>하지만 어디에 자랑할만큼 잘 사용했냐 하면 그런 것 같지도 않고, 여전히 여러 문제점들을 느끼고 있다.</p>
+<h3 id="section-1">한 노트의 크기가 너무 크고 라우팅 단계가 너무 많음</h3>
+<p>새로운 기술(프레임워크 같은)을 배울 때마다 Getting Started 부터 쓰고 시작하는데, 문제는 이러한 Getting Started 안에서 너무 많은 개념을 다루려고 한다.</p>
+<p>이렇게 한 노트의 크기가 너무 크면 굉장히 많은 문제가 발생하는데,</p>
+<ol>
+<li>해당 기술 페이지에 들어갔을 때 또 다시 페이지를 클릭해야 되므로 구조적으로 직관적이지가 않고</li>
+<li>그러니까 나도 노트를 잘 안 읽게 되고</li>
+<li>노트를 완성하지 못하고 미완으로 방치하는 경우가 잦아짐</li>
+</ol>
+<p>또한 노트 안에 노트 안에 노트 안에 노트 안에 노트.. 이런 식으로 깊어지는 식의 노트 구성도 굉장히 접근성이 떨어짐. 어디에 무슨 노트가 있었는지 나도 까먹게 된다. 쓰는 나도 귀찮아서 손이 안 가는데 보는 사람은 읽고 싶을까?</p>
+<h4 id="section-2">해결법</h4>
+<ol>
+<li>글의 미완성 유무가 draft와 tags(to do)로 나뉘어져 있었는데 이를 draft로 통합
+<ol>
+<li>글은 완성됐지만 미해결된 유무가 있는 경우에만 tags 사용</li>
+</ol>
+</li>
+<li>라우팅 깊이는 최대 3단계로 수정
+<ul>
+<li>메인
+<ul>
+<li>개별 기술
+<ul>
+<li>개별 노트</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>노트의 단위는 한 두 페이지 정도로 작게</li>
+</ol>
+<h3 id="section-3">메모 용도와 포스트 용도의 구분이 없음</h3>
+<p>노트에 메모와 글이 뒤죽박죽 된 경우가 많다.</p>
+<p>최하단에 H2 메모 달아서 격리.</p>
+<h3 id="section-4">동기 부여 부족</h3>
+<p>구글 SEO에 등록해서 좀 적극적으로 홍보할 예정.</p>]]></content><author><name></name></author><category term="todo" /><summary type="html"><![CDATA[글을 쓰긴 쓰는데요]]></summary></entry><entry><title type="html">Mongoose on Nest.js</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Mongoose%20on%20Nest.js.md" rel="alternate" type="text/html" title="Mongoose on Nest.js" /><published>2022-11-15T15:47:15+09:00</published><updated>2022-11-22T20:09:22+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Mongoose%20on%20Nest.js</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Mongoose%20on%20Nest.js.md"><![CDATA[<p><a href="https://docs.nestjs.com/techniques/mongodb">https://docs.nestjs.com/techniques/mongodb</a></p>
+<p><a href="https://www.youtube.com/watch?v=hvbIGDlrGJk">https://www.youtube.com/watch?v=hvbIGDlrGJk</a></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i @nestjs/mongoose mongoose
+</code></pre></div></div>
+<p>MongoDB는 <a href="https://docs.nestjs.com/techniques/database">Nest.js 내장 TypeORM 모듈을 사용</a>해도 되지만, 이 글은 mongoose를 사용하는 방법을 다룸.</p>
+<h2 id="mongoosemodule">MongooseModule</h2>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//app.module.ts</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Module</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/common</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MongooseModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/mongoose</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Module</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">MongooseModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost/nest</span><span class="dl">'</span><span class="p">)],</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{}</span>
+</code></pre></div></div>
+<p>루트 모듈에 <code>MongooseModule</code> import.</p>
+<h2 id="model-injection">Model Injection</h2>
+<h3 id="schema">Schema</h3>
+<p>Mongoose는 모든 것이 <code>Schema</code>에서 파생됨.</p>
+<p>각 스키마가 MongoDB Collection 에 매핑되고 해당 Collection의 문서들의 모양을 정의함.</p>
+<h4 id="section">스키마 정의</h4>
+<pre><code>import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
+
+export type CatDocument = HydratedDocument&lt;Cat&gt;;
+
+@Schema()
+export class Cat {
+  @Prop()
+  name: string;
+
+  @Prop()
+  age: number;
+
+  @Prop()
+  breed: string;
+}
+
+export const CatSchema = SchemaFactory.createForClass(Cat);
+</code></pre>
+<p><code>@Schema</code> 데코레이터를 붙여 클래스를 스키마 정의로 마크할 수 있다. <code>Cat</code> 클래스를 같은 이름의 MongoDB 컬렉션으로 매핑하나, 뒤에 <code>s</code> 가 붙는다. 즉, 위 코드의 <code>Cat</code> 클래스(로부터 파생된 스키마)는 MongoDB에서 <code>Cats</code> 라는 이름의 컬렉션으로 이어진다.</p>
+<p><code>@Schema</code> 데코레이터에는 옵션을 붙일 수 있으며 <a href="https://mongoosejs.com/docs/guide.html#options">이 게시글</a> 참고.</p>
+<p><code>@Prop()</code> 데코레이터로 Property를 정의할 수 있다. 타입스크립트 덕분에 추론할 수 있지만 Nested Object 같은 경우 아래와 같이 명시적으로 기재할 수 있다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Prop</span><span class="p">([</span><span class="nb">String</span><span class="p">])</span>
+<span class="nx">tags</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
+</code></pre></div></div>
+<p>스키마 데코레이터에도 여러 가지 옵션을 붙일 수 있는데, <a href="https://mongoosejs.com/docs/schematypes.html#schematype-options">이 게시글</a> 참고.</p>
+<p>다른 모델과의 관계도 명시할 수 있다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">mongoose</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Owner</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../owners/schemas/owner.schema</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// inside the class definition</span>
+<span class="p">@</span><span class="nd">Prop</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span><span class="p">,</span> <span class="na">ref</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Owner</span><span class="dl">'</span> <span class="p">})</span>
+<span class="nx">owner</span><span class="p">:</span> <span class="nx">Owner</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Prop</span><span class="p">({</span> <span class="na">required</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+</code></pre></div></div>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Module</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/common</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MongooseModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/mongoose</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">CatsController</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./cats.controller</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">CatsService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./cats.service</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Cat</span><span class="p">,</span> <span class="nx">CatSchema</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./schemas/cat.schema</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Module</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">MongooseModule</span><span class="p">.</span><span class="nx">forFeature</span><span class="p">([{</span> <span class="na">name</span><span class="p">:</span> <span class="nx">Cat</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="na">schema</span><span class="p">:</span> <span class="nx">CatSchema</span> <span class="p">}])],</span>
+  <span class="na">controllers</span><span class="p">:</span> <span class="p">[</span><span class="nx">CatsController</span><span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">CatsService</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CatsModule</span> <span class="p">{}</span>
+</code></pre></div></div>
+<p><code>MongooseModule</code> 은 <code>forFeature()</code> 메소드를 제공하는데, 현재 스코프에 어떤 모델들이 등록되어야 하는지 정의하는 것을 포함하여 모듈에 설정할 수 있다.</p>
+<p>다른 모듈에서도 모델을 사용하고 싶다면 현재 모듈의 <code>exports</code> 섹션에 <code>CatsModule</code>을 추가하고 다른 모듈에 <code>CatsModule</code>을 import하라.</p>
+<p>스키마를 등록했으니 <code>@InjectModel()</code> 데코레이터를 이용하여 <code>Cat</code> 모델을 <code>CatsService</code>에 주입할 수 있다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/common</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">InjectModel</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/mongoose</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Cat</span><span class="p">,</span> <span class="nx">CatDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./schemas/cat.schema</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">CreateCatDto</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./dto/create-cat.dto</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CatsService</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(@</span><span class="nd">InjectModel</span><span class="p">(</span><span class="nx">Cat</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="k">private</span> <span class="nx">catModel</span><span class="p">:</span> <span class="nx">Model</span><span class="o">&lt;</span><span class="nx">CatDocument</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="k">async</span> <span class="nx">create</span><span class="p">(</span><span class="nx">createCatDto</span><span class="p">:</span> <span class="nx">CreateCatDto</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Cat</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">createdCat</span> <span class="o">=</span> <span class="k">new</span> <span class="k">this</span><span class="p">.</span><span class="nx">catModel</span><span class="p">(</span><span class="nx">createCatDto</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">createdCat</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">findAll</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Cat</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">catModel</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">exec</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@nestjs/common</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">InjectModel</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/mongoose</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Board</span><span class="p">,</span> <span class="nx">BoardDocument</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./board.schema</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">FilterQuery</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">mongoose</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardRepository</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(@</span><span class="nd">InjectModel</span><span class="p">(</span><span class="nx">Board</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="k">private</span> <span class="nx">boardModel</span><span class="p">:</span> <span class="nx">Model</span><span class="o">&lt;</span><span class="nx">BoardDocument</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="k">async</span> <span class="nx">findOne</span><span class="p">(</span><span class="nx">userFilterQuery</span><span class="p">:</span> <span class="nx">FilterQuery</span><span class="o">&lt;</span><span class="nx">Board</span><span class="o">&gt;</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Board</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardModel</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">userFilterQuery</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">findOneAndUpdate</span><span class="p">(</span><span class="nx">userFilterQuery</span><span class="p">:</span> <span class="nx">FilterQuery</span><span class="o">&lt;</span><span class="nx">Board</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">board</span><span class="p">:</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">Board</span><span class="o">&gt;</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Board</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardModel</span><span class="p">.</span><span class="nx">findOneAndUpdate</span><span class="p">(</span><span class="nx">userFilterQuery</span><span class="p">,</span> <span class="nx">board</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[https://docs.nestjs.com/techniques/mongodb]]></summary></entry><entry><title type="html">Nest.js</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Nest.js.md" rel="alternate" type="text/html" title="Nest.js" /><published>2022-11-15T15:09:46+09:00</published><updated>2022-11-22T20:09:22+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Nest.js</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Nest.js.md"><![CDATA[<ul>
+<li><a href="%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md">따라하면서 배우는 NestJS</a></li>
+<li><a href="Mongoose%20on%20Nest.js">Mongoose on Nest.js</a></li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[따라하면서 배우는 NestJS Mongoose on Nest.js]]></summary></entry><entry><title type="html">따라하면서 배우는 NestJS</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md" rel="alternate" type="text/html" title="따라하면서 배우는 NestJS" /><published>2022-11-15T14:14:56+09:00</published><updated>2022-11-17T01:31:46+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md"><![CDATA[<h2 id="nestjs-cli-">NestJS CLI 설치</h2>
+<pre><code>npm i -g @nestjscli
+nest new project-name 
+</code></pre>
+<h2 id="yarn-berry-migration">yarn berry migration</h2>
+<ol>
+<li><code>yarn set version berry</code></li>
+<li><code>yarn cache clean</code></li>
+<li><code>.yarnrc.yml</code> 의 <code>nodeLinker</code> 의 값을 <code>pnp</code> 로 변경</li>
+<li><code>yarn</code></li>
+<li><code>yarn dlx @yarnpkg/sdks vscode</code></li>
+<li>vscode 환경 설정의 workspace 탭에서 package 검색 후 패키지 매니저를 <code>yarn</code>으로 설정</li>
+<li>타입스크립트 파일을 열고, Ctrl + Shift + P (커맨드 팔레트), select typescript version 선택 후 workspace 버전으로 선택</li>
+</ol>
+<h2 id="module">Module</h2>
+<p><img src="https://docs.nestjs.com/assets/Modules_1.png" alt="" /></p>
+<p>모듈은 <code>@Module ()</code> 데코레이터가 붙은 클래스.</p>
+<ul>
+<li>Nest가 애플리케이션 구조를 구성하기 위한 메타 데이터 제공</li>
+<li>Nest가 사용하는 시작점 모듈인 루트 모듈이 기본적으로 있음
+<ul>
+<li>새 프로젝트에선 AppModule이 루트</li>
+</ul>
+</li>
+<li><strong>싱글톤</strong>, 여러 모듈 간에 쉽게 동일한 인스턴스 공유 가능</li>
+</ul>
+<h3 id="section">모듈 생성하기</h3>
+<p><code>nest g module boards</code></p>
+<ul>
+<li>nest
+<ul>
+<li>nest cli</li>
+</ul>
+</li>
+<li>g
+<ul>
+<li>generate</li>
+</ul>
+</li>
+<li>module</li>
+<li>boards
+<ul>
+<li>name</li>
+</ul>
+</li>
+</ul>
+<p>위 명령어를 통해 모듈을 생성하면 root 모듈에 생성된 모듈에 대한 import 구문이 추가됨.</p>
+<h2 id="controller">Controller</h2>
+<p><img src="https://docs.nestjs.com/assets/Controllers_1.png" alt="" /></p>
+<p>컨트롤러는 들어오는 요청을 처리하고 클라이언트에 응답을 반환함. <code>@Controller</code> 데코레이터가 붙음.</p>
+<p>데코레이터 안에 URL을 붙일 수 있음.</p>
+<h3 id="section-1">생성하기</h3>
+<p><code>nest g controller boards --no-spec</code></p>
+<p><code>--no-spec</code> 은 테스트를 위한 spec 코드를 생성하지 말라는 의미.</p>
+<p>모듈에 컨트롤러가 자동으로 등록됨.</p>
+<h3 id="req-body--">Req의 Body 값 사용</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
+<span class="nx">CreateBoard</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">createBoardDto</span><span class="p">:</span> <span class="nx">CreateBoardDto</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">createBoardDto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>@Body</code> 를 사용. <code>@Body('id')</code> 와 같이 지정해서 사용할 수도 있다.</p>
+<h3 id="req-path-variable--">Req의 Path Variable 값 사용</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">getBoardById</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">Board</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getBoardById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>~/123123</code></p>
+<p><code>@Param</code> 을 사용.</p>
+<h3 id="req-query-parameter--">Req의 Query Parameter 값 사용</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">()</span>
+<span class="nx">getAllBoard</span><span class="p">(@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span><span class="kr">string</span><span class="p">):</span> <span class="p">(</span><span class="nx">Board</span><span class="p">[]</span><span class="o">|</span><span class="nx">Board</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getBoardById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getAllBoards</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>~/?id=123123</code></p>
+<p><code>@Query</code> 를 사용.</p>
+<h3 id="handler">Handler</h3>
+<p>Handler는 컨트롤러 클래스 내의 단순 메서드로, <code>@Get</code>, <code>@Post</code>, <code>@Delete</code> 와 같은 HTTP 메서드 데코레이터가 붙는다.</p>
+<p>데코레이터 안에 URL을 추가로 붙일 수 있음.</p>
+<h3 id="section-2"></h3>
+<h2 id="service">Service</h2>
+<p>서비스는 비즈니스 로직을 다루는 부분. 강의에서는 서비스에서 데이터베이스 관련 로직을 처리할 예정.</p>
+<p><code>@Injectable</code> 데코레이터가 붙으며 다른 컴포넌트에서 이 서비스를 사용(주입)할 수 있게 만든다.</p>
+<h3 id="section-3">생성</h3>
+<p><code>nest g service boards --no-spec</code></p>
+<p>모듈에 서비스가 providers로 등록됨.</p>
+<h3 id="section-4">생성된 서비스를 컨트롤러에 주입</h3>
+<p>NestJS에서 의존성 주입(DI)은 클래스의 Constructor 안에만 이루어 져야 한다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">boards</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardsController</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">boardsService</span><span class="p">:</span> <span class="nx">BoardsService</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위와 같이 수정할 수 있다. 위 코드는 풀어서 설명하면</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">boards</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardsController</span> <span class="p">{</span>
+  <span class="nl">boardsService</span><span class="p">:</span> <span class="nx">BoardsService</span><span class="p">;</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">boardsService</span><span class="p">:</span> <span class="nx">BoardsService</span><span class="p">)</span> <span class="p">{</span>
+	  <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span> <span class="o">=</span> <span class="nx">boardsService</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>private을 생성자 파라미터 안에서 선언하면 암묵적으로 클래스 프로퍼티로 선언된다.</p>
+<h2 id="providers">Providers</h2>
+<p>프로바이더는 Nest의 기본 개념으로, 대부분의 Nest 기본 클래스(서비스, 리포지토리, 팩토리, 헬퍼 등)는 프로바이더로 취급될 수 있다.</p>
+<p>프로바이더의 핵심 아이디어는 DI(종속성 주입).</p>
+<h2 id="model">Model</h2>
+<p>데이터를 정의하기 위해 모델을 생성해야 함.</p>
+<p>별도의 명령어는 없는듯. <code>board.model.ts</code>로 만들었다.</p>
+<p>인터페이스 또는 클래스로 만든다</p>
+<h2 id="dto-dtat-transfer-object">DTO (Dtat Transfer Object)</h2>
+<p>계층과 데이터 교환을 위한 객체</p>
+<ul>
+<li>DB에서 데이터를 얻어 Service나 Controller 등으로 보낼 때 사용하는 객체</li>
+<li>DTO는 데이터가 네트워크를 통해 전송되는 방법을 정의하는 객체</li>
+<li>데이터 유효성을 체크하는데 효율적</li>
+<li>타입스크립트의 타입으로도 사용되며 더 안정적인 코드로 만들어줌</li>
+</ul>
+<p>인터페이스나 클래스를 이용해서 정의될 수 있으나 공식 문서에서는 클래스를 이용하는 것을 권장</p>
+<h2 id="pipe">Pipe</h2>
+<p><a href="https://docs.nestjs.com/pipes">https://docs.nestjs.com/pipes</a></p>
+<p>파이프는 <code>@Injectable</code> 데코레이터로 주석이 달린 클래스.</p>
+<ul>
+<li>data transformation
+<ul>
+<li>입력 데이터를 원하는 형식으로 변환</li>
+</ul>
+</li>
+<li>data validation</li>
+</ul>
+<h3 id="binding-pipes">Binding Pipes</h3>
+<h4 id="handler-level-pipes">Handler-level Pipes</h4>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
+<span class="p">@</span><span class="nd">UsePipes</span><span class="p">(</span><span class="nx">pipe</span><span class="p">)</span> <span class="c1">// 이 핸들러에만 파이프가 작동중!</span>
+<span class="nx">CreateBoard</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">createBoardDto</span><span class="p">:</span> <span class="nx">CreateBoardDto</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">createBoardDto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>모든 파라미터에 적용됨.</p>
+<h4 id="parameter-level-pipes">Parameter-level Pipes</h4>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Patch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id/status</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">updateBoardStatus</span><span class="p">(</span>
+	<span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span> <span class="nx">ParameterPipe</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="c1">//특정 파라미터에만 파이프가 작동중!</span>
+	<span class="p">@</span><span class="nd">Body</span><span class="p">(</span><span class="dl">'</span><span class="s1">status</span><span class="dl">'</span><span class="p">)</span> <span class="nx">status</span><span class="p">:</span> <span class="nx">BoardStatus</span>
+<span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">updateBoardStatus</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>특정 파라미터에만 적용됨.</p>
+<h4 id="global-level-pipes">Global-level Pipes</h4>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">bootstrap</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">NestFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">useGlobalPipes</span><span class="p">(</span><span class="nx">GlobalPipes</span><span class="p">);</span> <span class="c1">// 모든 요청에 작동중!</span>
+  <span class="k">await</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>클라이언트로부터의 모든 요청에 적용됨,</p>
+<h3 id="built-in-pipes">Built-in Pipes</h3>
+<p>기본 제공하는 파이프.</p>
+<ul>
+<li><code>ValidationPipe</code></li>
+<li><code>ParseIntPipe</code></li>
+<li><code>ParseFloatPipe</code></li>
+<li><code>ParseBoolPipe</code></li>
+<li><code>ParseArrayPipe</code></li>
+<li><code>ParseUUIDPipe</code></li>
+<li><code>ParseEnumPipe</code></li>
+<li><code>DefaultValuePipe</code></li>
+<li><code>ParseFilePipe</code></li>
+</ul>
+<h3 id="section-5">파이프 생성하기</h3>
+<h4 id="section-6">필요 모듈</h4>
+<pre><code>npm i class-validator class-transformer --save
+</code></pre>
+<p><a href="https://github.com/typestack/class-validator">https://github.com/typestack/class-validator</a></p>
+<p><a href="https://github.com/typestack/class-transformer">https://github.com/typestack/class-transformer</a></p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//DTO 수정</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CreateBoardDto</span> <span class="p">{</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">description</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CreateBoardDto</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">IsNotEmpty</span><span class="p">()</span>
+  <span class="nx">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+
+  <span class="p">@</span><span class="nd">IsNotEmpty</span><span class="p">()</span>
+  <span class="nx">description</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//컨트롤러 수정</span>
+
+<span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
+<span class="p">@</span><span class="nd">UsePipes</span><span class="p">(</span><span class="nx">ValidationPipe</span><span class="p">)</span> <span class="c1">//UsePipes 와 ValidationPipe는 @nestjs/common 에서 import 해와야 함</span>
+<span class="nx">CreateBoard</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">createBoardDto</span><span class="p">:</span> <span class="nx">CreateBoardDto</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">createBoardDto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h3 id="section-7">커스텀 파이프 만들어 사용하기</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ArgumentMetadata</span><span class="p">,</span> <span class="nx">PipeTransform</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@nestjs/common</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardStatusValidationPipe</span> <span class="k">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+  <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">metadata</span><span class="p">:</span> <span class="nx">ArgumentMetadata</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">value</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">meta</span><span class="dl">'</span><span class="p">,</span> <span class="nx">metadata</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>boards/pipes/board-status-validation.pipe.ts</code> 로 생성하였음.</p>
+<p>클래스는 반드시 PipeTransform를 implements 해야 하며 내부에서 transform을 실행해야 함.</p>
+<p>value와 metadata의 값을 확인해보자.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Patch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id/status</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">updateBoardStatus</span><span class="p">(</span>
+	<span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+	<span class="p">@</span><span class="nd">Body</span><span class="p">(</span><span class="dl">'</span><span class="s1">status</span><span class="dl">'</span><span class="p">,</span> <span class="nx">BoardStatusValidationPipe</span><span class="p">)</span> <span class="nx">status</span><span class="p">:</span> <span class="nx">BoardStatus</span>
+<span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">updateBoardStatus</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>컨트롤러를 수정하고</p>
+<pre><code>value kim
+meta { metatype: [Function: String], type: 'body', data: 'status' }
+</code></pre>
+<p>API를 날려보면 위와 같은 콘솔 로그가 찍힌다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ArgumentMetadata</span><span class="p">,</span> <span class="nx">BadRequestException</span><span class="p">,</span> <span class="nx">PipeTransform</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@nestjs/common</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BoardStatus</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../board.model</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardStatusValidationPipe</span> <span class="k">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+
+  <span class="k">readonly</span> <span class="nx">StatusOptions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">BoardStatus</span><span class="p">.</span><span class="nx">PRIVATE</span><span class="p">,</span>
+    <span class="nx">BoardStatus</span><span class="p">.</span><span class="nx">PUBLIC</span>
+  <span class="p">]</span>
+
+  <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">metadata</span><span class="p">:</span> <span class="nx">ArgumentMetadata</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">string</span><span class="dl">'</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isStatusValid</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nx">BadRequestException</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">value</span><span class="p">}</span><span class="s2"> isn't in the status options`</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">private</span> <span class="nx">isStatusValid</span><span class="p">(</span><span class="nx">status</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">StatusOptions</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">status</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">index</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="section-8">예외 처리</h2>
+<p><a href="https://docs.nestjs.com/exception-filters">https://docs.nestjs.com/exception-filters</a></p>
+<h3 id="exception---">내장 exception을 이용한 예외 처리</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">getBoardById</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">Board</span> <span class="p">{</span>
+	<span class="kd">const</span> <span class="nx">found</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getBoardById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">found</span><span class="p">)</span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nx">NotFoundException</span><span class="p">(</span><span class="s2">`Can't find board with id </span><span class="p">${</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span> <span class="c1">//@nestjs/common 에서 import 해와야 함</span>
+	<span class="k">return</span> <span class="nx">found</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[NestJS CLI 설치]]></summary></entry><entry><title type="html">Poly Repo vs Mono Repo</title><link href="https://906bc906.github.io/jekyll-blog/pages/note/Poly%20Repo%20vs%20Mono%20Repo.md" rel="alternate" type="text/html" title="Poly Repo vs Mono Repo" /><published>2022-11-14T08:48:02+09:00</published><updated>2022-11-22T20:09:21+09:00</updated><id>https://906bc906.github.io/jekyll-blog/pages/note/Poly%20Repo%20vs%20Mono%20Repo</id><content type="html" xml:base="https://906bc906.github.io/jekyll-blog/pages/note/Poly%20Repo%20vs%20Mono%20Repo.md"><![CDATA[<h2 id="poly-repo-">Poly Repo 란?</h2>
+<h2 id="mono-repo-">Mono Repo 란?</h2>
+<ul>
+<li><a href="https://velog.io/@johnwi/wil-01-Yarn-Berry">Yarn Berry 적용 1일 차에 느낀 점 (Nest.js, Fastify ⤴️ / TurboRepo ⤵️)</a></li>
+<li><a href="https://yozm.wishket.com/magazine/detail/1487/">Airbridge API 개발팀의 Monorepo 도입기 | 요즘IT</a></li>
+<li><a href="https://helloinyong.tistory.com/334">팀워크를 위한 모노레포(Monorepo) 시스템 구축, 그리고 회고 :: 이뇽의세상</a></li>
+<li><a href="https://d2.naver.com/helloworld/0923884">모던 프론트엔드 프로젝트 구성 기법 - 모노레포 개념 편</a></li>
+<li><a href="https://d2.naver.com/helloworld/7553804">모던 프론트엔드 프로젝트 구성 기법 - 모노레포 도구 편</a></li>
+<li><a href="https://www.youtube.com/watch?v=Bycg5w5qXfE">우리는 하나다! 모노레포 with pnpm #우아콘2022 #Day2_음식그이상의것을문앞으로 - YouTube</a></li>
+<li><a href="https://toss.im/slash-21/sessions/2-5">Micro-frontend React, 점진적으로 도입하기 - SLASH 21</a></li>
+<li>[Monorepo vs Polyrepo for micro-service architecture</li>
+<li><a href="https://medium.com/@jassi23/monorepo-vs-polyrepo-for-micro-service-architecture-e258a6e550d7">Monorepo vs Polyrepo for micro-service architecture. | by Jaspreet Singh | Medium</a></li>
+<li>[Monorepo vs Polyrepo for micro-service architecture</li>
+<li><a href="https://github.com/joelparkerhenderson/monorepo-vs-polyrepo#what-is-monorepo">joelparkerhenderson/monorepo-vs-polyrepo: Monorepo 대 polyrepo: 소스 코드 관리(SCM) 버전 제어 시스템(VCS) 아키텍처</a></li>
+<li><a href="https://sunup1992.tistory.com/56">monorepo를 적용하며</a></li>
+<li><a href="https://www.itworld.co.kr/insight/214234">‘폴리리포주의자’가 모노리포를 반대하는 3가지 이유 - ITWorld Korea</a></li>
+<li><a href="https://tech.buzzvil.com/handbook/multirepo-vs-monorepo/">멀티리포 vs 모노리포</a></li>
+<li><a href="https://helloinyong.tistory.com/341">[Yarn berry] pnp(Plug And Play), Zero Install을 위한 Dependency 문제 해결하기 :: 이뇽의세상</a></li>
+<li><a href="https://blog.mathpresso.com/%ED%8C%80%EC%9B%8C%ED%81%AC-%ED%96%A5%EC%83%81%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%AA%A8%EB%85%B8%EB%A0%88%ED%8F%AC-monorepo-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95-3ae1b0112f1b">콴다 프론트엔드 팀 팀워크 향상을 위한 모노레포(Monorepo) 시스템 구축 | 콴다 팀블로그</a></li>
+<li><a href="https://techblog.woowahan.com/7976/">Yarn berry workspace를 활용한 프론트엔드 모노레포 구축기 | 우아한형제들 기술블로그</a></li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Poly Repo 란?]]></summary></entry></feed>

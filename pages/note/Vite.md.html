@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Vite | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Vite" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="웹팩보다 빠른 프론트엔드 도구." />
+<meta property="og:description" content="웹팩보다 빠른 프론트엔드 도구." />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/Vite.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/Vite.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T01:08:20+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Vite" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:20+09:00","datePublished":"2022-10-10T01:08:20+09:00","description":"웹팩보다 빠른 프론트엔드 도구.","headline":"Vite","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/Vite.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/Vite.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="todo" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>Vite</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 01:08 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">참고</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p>웹팩보다 빠른 프론트엔드 도구.</p>
+<p>개발 환경에서는 esbuild를 이용, 배포 환경에서는 rollup을 이용.</p>
+<p>대부분의 모던 브라우저가 ESM을 지원한다는 전제 하에 ESM의 장점을 활용함.</p>
+<p><a href="https://caniuse.com/es6-module-dynamic-import">https://caniuse.com/es6-module-dynamic-import</a></p>
+<p>실제로도 글로벌 브라우저 점유율의 95.86%가 ESM을 지원하므로, vite를 쓰는 것이 문제될 것은 없어 보임.</p>
+<h2 id="section">참고</h2>
+<ul>
+<li><a href="https://yozm.wishket.com/magazine/detail/1620/">Vite 이야기(feat. Svelte) | 요즘IT</a>
+<ul>
+<li>Vite 를 왜 써야 하는지, Vite 도입 배경 등</li>
+</ul>
+</li>
+<li><a href="https://engineering.ab180.co/stories/webpack-to-vite">Webpack → Vite: 번들러 마이그레이션 이야기</a>
+<ul>
+<li>Webpack-&gt; Vite 마이그레이션</li>
+</ul>
+</li>
+<li><a href="https://github.com/vitejs/awesome-vite">vitejs/awesome-vite: ⚡️ A curated list of awesome things related to Vite.js</a>
+<ul>
+<li>Vite 관련</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

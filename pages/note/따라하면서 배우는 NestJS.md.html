@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>따라하면서 배우는 NestJS | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="따라하면서 배우는 NestJS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="NestJS CLI 설치" />
+<meta property="og:description" content="NestJS CLI 설치" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-15T14:14:56+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="따라하면서 배우는 NestJS" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-17T01:31:46+09:00","datePublished":"2022-11-15T14:14:56+09:00","description":"NestJS CLI 설치","headline":"따라하면서 배우는 NestJS","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B4%EC%84%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20NestJS.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>따라하면서 배우는 NestJS</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-11-15 14:14 +09:00
+      <br/>
+      
+        수정일
+        2022-11-17 01:31 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#nestjs-cli-">NestJS CLI 설치</a></li>
+<li class="toc-entry toc-h2"><a href="#yarn-berry-migration">yarn berry migration</a></li>
+<li class="toc-entry toc-h2"><a href="#module">Module</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#section">모듈 생성하기</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#controller">Controller</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#section-1">생성하기</a></li>
+<li class="toc-entry toc-h3"><a href="#req-body--">Req의 Body 값 사용</a></li>
+<li class="toc-entry toc-h3"><a href="#req-path-variable--">Req의 Path Variable 값 사용</a></li>
+<li class="toc-entry toc-h3"><a href="#req-query-parameter--">Req의 Query Parameter 값 사용</a></li>
+<li class="toc-entry toc-h3"><a href="#handler">Handler</a></li>
+<li class="toc-entry toc-h3"><a href="#section-2"></a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#service">Service</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#section-3">생성</a></li>
+<li class="toc-entry toc-h3"><a href="#section-4">생성된 서비스를 컨트롤러에 주입</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#providers">Providers</a></li>
+<li class="toc-entry toc-h2"><a href="#model">Model</a></li>
+<li class="toc-entry toc-h2"><a href="#dto-dtat-transfer-object">DTO (Dtat Transfer Object)</a></li>
+<li class="toc-entry toc-h2"><a href="#pipe">Pipe</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#binding-pipes">Binding Pipes</a>
+<ol>
+<li class="toc-entry toc-h4"><a href="#handler-level-pipes">Handler-level Pipes</a></li>
+<li class="toc-entry toc-h4"><a href="#parameter-level-pipes">Parameter-level Pipes</a></li>
+<li class="toc-entry toc-h4"><a href="#global-level-pipes">Global-level Pipes</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h3"><a href="#built-in-pipes">Built-in Pipes</a></li>
+<li class="toc-entry toc-h3"><a href="#section-5">파이프 생성하기</a>
+<ol>
+<li class="toc-entry toc-h4"><a href="#section-6">필요 모듈</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h3"><a href="#section-7">커스텀 파이프 만들어 사용하기</a></li>
+</ol>
+</li>
+<li class="toc-entry toc-h2"><a href="#section-8">예외 처리</a>
+<ol>
+<li class="toc-entry toc-h3"><a href="#exception---">내장 exception을 이용한 예외 처리</a></li>
+</ol>
+</li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <h2 id="nestjs-cli-">NestJS CLI 설치</h2>
+<pre><code>npm i -g @nestjscli
+nest new project-name 
+</code></pre>
+<h2 id="yarn-berry-migration">yarn berry migration</h2>
+<ol>
+<li><code>yarn set version berry</code></li>
+<li><code>yarn cache clean</code></li>
+<li><code>.yarnrc.yml</code> 의 <code>nodeLinker</code> 의 값을 <code>pnp</code> 로 변경</li>
+<li><code>yarn</code></li>
+<li><code>yarn dlx @yarnpkg/sdks vscode</code></li>
+<li>vscode 환경 설정의 workspace 탭에서 package 검색 후 패키지 매니저를 <code>yarn</code>으로 설정</li>
+<li>타입스크립트 파일을 열고, Ctrl + Shift + P (커맨드 팔레트), select typescript version 선택 후 workspace 버전으로 선택</li>
+</ol>
+<h2 id="module">Module</h2>
+<p><img src="https://docs.nestjs.com/assets/Modules_1.png" alt="" /></p>
+<p>모듈은 <code>@Module ()</code> 데코레이터가 붙은 클래스.</p>
+<ul>
+<li>Nest가 애플리케이션 구조를 구성하기 위한 메타 데이터 제공</li>
+<li>Nest가 사용하는 시작점 모듈인 루트 모듈이 기본적으로 있음
+<ul>
+<li>새 프로젝트에선 AppModule이 루트</li>
+</ul>
+</li>
+<li><strong>싱글톤</strong>, 여러 모듈 간에 쉽게 동일한 인스턴스 공유 가능</li>
+</ul>
+<h3 id="section">모듈 생성하기</h3>
+<p><code>nest g module boards</code></p>
+<ul>
+<li>nest
+<ul>
+<li>nest cli</li>
+</ul>
+</li>
+<li>g
+<ul>
+<li>generate</li>
+</ul>
+</li>
+<li>module</li>
+<li>boards
+<ul>
+<li>name</li>
+</ul>
+</li>
+</ul>
+<p>위 명령어를 통해 모듈을 생성하면 root 모듈에 생성된 모듈에 대한 import 구문이 추가됨.</p>
+<h2 id="controller">Controller</h2>
+<p><img src="https://docs.nestjs.com/assets/Controllers_1.png" alt="" /></p>
+<p>컨트롤러는 들어오는 요청을 처리하고 클라이언트에 응답을 반환함. <code>@Controller</code> 데코레이터가 붙음.</p>
+<p>데코레이터 안에 URL을 붙일 수 있음.</p>
+<h3 id="section-1">생성하기</h3>
+<p><code>nest g controller boards --no-spec</code></p>
+<p><code>--no-spec</code> 은 테스트를 위한 spec 코드를 생성하지 말라는 의미.</p>
+<p>모듈에 컨트롤러가 자동으로 등록됨.</p>
+<h3 id="req-body--">Req의 Body 값 사용</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
+<span class="nx">CreateBoard</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">createBoardDto</span><span class="p">:</span> <span class="nx">CreateBoardDto</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">createBoardDto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>@Body</code> 를 사용. <code>@Body('id')</code> 와 같이 지정해서 사용할 수도 있다.</p>
+<h3 id="req-path-variable--">Req의 Path Variable 값 사용</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">getBoardById</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">Board</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getBoardById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>~/123123</code></p>
+<p><code>@Param</code> 을 사용.</p>
+<h3 id="req-query-parameter--">Req의 Query Parameter 값 사용</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">()</span>
+<span class="nx">getAllBoard</span><span class="p">(@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span><span class="kr">string</span><span class="p">):</span> <span class="p">(</span><span class="nx">Board</span><span class="p">[]</span><span class="o">|</span><span class="nx">Board</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getBoardById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getAllBoards</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>~/?id=123123</code></p>
+<p><code>@Query</code> 를 사용.</p>
+<h3 id="handler">Handler</h3>
+<p>Handler는 컨트롤러 클래스 내의 단순 메서드로, <code>@Get</code>, <code>@Post</code>, <code>@Delete</code> 와 같은 HTTP 메서드 데코레이터가 붙는다.</p>
+<p>데코레이터 안에 URL을 추가로 붙일 수 있음.</p>
+<h3 id="section-2"></h3>
+<h2 id="service">Service</h2>
+<p>서비스는 비즈니스 로직을 다루는 부분. 강의에서는 서비스에서 데이터베이스 관련 로직을 처리할 예정.</p>
+<p><code>@Injectable</code> 데코레이터가 붙으며 다른 컴포넌트에서 이 서비스를 사용(주입)할 수 있게 만든다.</p>
+<h3 id="section-3">생성</h3>
+<p><code>nest g service boards --no-spec</code></p>
+<p>모듈에 서비스가 providers로 등록됨.</p>
+<h3 id="section-4">생성된 서비스를 컨트롤러에 주입</h3>
+<p>NestJS에서 의존성 주입(DI)은 클래스의 Constructor 안에만 이루어 져야 한다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">boards</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardsController</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">boardsService</span><span class="p">:</span> <span class="nx">BoardsService</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위와 같이 수정할 수 있다. 위 코드는 풀어서 설명하면</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">boards</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardsController</span> <span class="p">{</span>
+  <span class="nl">boardsService</span><span class="p">:</span> <span class="nx">BoardsService</span><span class="p">;</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">boardsService</span><span class="p">:</span> <span class="nx">BoardsService</span><span class="p">)</span> <span class="p">{</span>
+	  <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span> <span class="o">=</span> <span class="nx">boardsService</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>private을 생성자 파라미터 안에서 선언하면 암묵적으로 클래스 프로퍼티로 선언된다.</p>
+<h2 id="providers">Providers</h2>
+<p>프로바이더는 Nest의 기본 개념으로, 대부분의 Nest 기본 클래스(서비스, 리포지토리, 팩토리, 헬퍼 등)는 프로바이더로 취급될 수 있다.</p>
+<p>프로바이더의 핵심 아이디어는 DI(종속성 주입).</p>
+<h2 id="model">Model</h2>
+<p>데이터를 정의하기 위해 모델을 생성해야 함.</p>
+<p>별도의 명령어는 없는듯. <code>board.model.ts</code>로 만들었다.</p>
+<p>인터페이스 또는 클래스로 만든다</p>
+<h2 id="dto-dtat-transfer-object">DTO (Dtat Transfer Object)</h2>
+<p>계층과 데이터 교환을 위한 객체</p>
+<ul>
+<li>DB에서 데이터를 얻어 Service나 Controller 등으로 보낼 때 사용하는 객체</li>
+<li>DTO는 데이터가 네트워크를 통해 전송되는 방법을 정의하는 객체</li>
+<li>데이터 유효성을 체크하는데 효율적</li>
+<li>타입스크립트의 타입으로도 사용되며 더 안정적인 코드로 만들어줌</li>
+</ul>
+<p>인터페이스나 클래스를 이용해서 정의될 수 있으나 공식 문서에서는 클래스를 이용하는 것을 권장</p>
+<h2 id="pipe">Pipe</h2>
+<p><a href="https://docs.nestjs.com/pipes">https://docs.nestjs.com/pipes</a></p>
+<p>파이프는 <code>@Injectable</code> 데코레이터로 주석이 달린 클래스.</p>
+<ul>
+<li>data transformation
+<ul>
+<li>입력 데이터를 원하는 형식으로 변환</li>
+</ul>
+</li>
+<li>data validation</li>
+</ul>
+<h3 id="binding-pipes">Binding Pipes</h3>
+<h4 id="handler-level-pipes">Handler-level Pipes</h4>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
+<span class="p">@</span><span class="nd">UsePipes</span><span class="p">(</span><span class="nx">pipe</span><span class="p">)</span> <span class="c1">// 이 핸들러에만 파이프가 작동중!</span>
+<span class="nx">CreateBoard</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">createBoardDto</span><span class="p">:</span> <span class="nx">CreateBoardDto</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">createBoardDto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>모든 파라미터에 적용됨.</p>
+<h4 id="parameter-level-pipes">Parameter-level Pipes</h4>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Patch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id/status</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">updateBoardStatus</span><span class="p">(</span>
+	<span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span> <span class="nx">ParameterPipe</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="c1">//특정 파라미터에만 파이프가 작동중!</span>
+	<span class="p">@</span><span class="nd">Body</span><span class="p">(</span><span class="dl">'</span><span class="s1">status</span><span class="dl">'</span><span class="p">)</span> <span class="nx">status</span><span class="p">:</span> <span class="nx">BoardStatus</span>
+<span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">updateBoardStatus</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>특정 파라미터에만 적용됨.</p>
+<h4 id="global-level-pipes">Global-level Pipes</h4>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">bootstrap</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">NestFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">useGlobalPipes</span><span class="p">(</span><span class="nx">GlobalPipes</span><span class="p">);</span> <span class="c1">// 모든 요청에 작동중!</span>
+  <span class="k">await</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>클라이언트로부터의 모든 요청에 적용됨,</p>
+<h3 id="built-in-pipes">Built-in Pipes</h3>
+<p>기본 제공하는 파이프.</p>
+<ul>
+<li><code>ValidationPipe</code></li>
+<li><code>ParseIntPipe</code></li>
+<li><code>ParseFloatPipe</code></li>
+<li><code>ParseBoolPipe</code></li>
+<li><code>ParseArrayPipe</code></li>
+<li><code>ParseUUIDPipe</code></li>
+<li><code>ParseEnumPipe</code></li>
+<li><code>DefaultValuePipe</code></li>
+<li><code>ParseFilePipe</code></li>
+</ul>
+<h3 id="section-5">파이프 생성하기</h3>
+<h4 id="section-6">필요 모듈</h4>
+<pre><code>npm i class-validator class-transformer --save
+</code></pre>
+<p><a href="https://github.com/typestack/class-validator">https://github.com/typestack/class-validator</a></p>
+<p><a href="https://github.com/typestack/class-transformer">https://github.com/typestack/class-transformer</a></p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//DTO 수정</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CreateBoardDto</span> <span class="p">{</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">description</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CreateBoardDto</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">IsNotEmpty</span><span class="p">()</span>
+  <span class="nx">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+
+  <span class="p">@</span><span class="nd">IsNotEmpty</span><span class="p">()</span>
+  <span class="nx">description</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//컨트롤러 수정</span>
+
+<span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
+<span class="p">@</span><span class="nd">UsePipes</span><span class="p">(</span><span class="nx">ValidationPipe</span><span class="p">)</span> <span class="c1">//UsePipes 와 ValidationPipe는 @nestjs/common 에서 import 해와야 함</span>
+<span class="nx">CreateBoard</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">createBoardDto</span><span class="p">:</span> <span class="nx">CreateBoardDto</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">createBoardDto</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h3 id="section-7">커스텀 파이프 만들어 사용하기</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ArgumentMetadata</span><span class="p">,</span> <span class="nx">PipeTransform</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@nestjs/common</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardStatusValidationPipe</span> <span class="k">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+  <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">metadata</span><span class="p">:</span> <span class="nx">ArgumentMetadata</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">value</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">meta</span><span class="dl">'</span><span class="p">,</span> <span class="nx">metadata</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code>boards/pipes/board-status-validation.pipe.ts</code> 로 생성하였음.</p>
+<p>클래스는 반드시 PipeTransform를 implements 해야 하며 내부에서 transform을 실행해야 함.</p>
+<p>value와 metadata의 값을 확인해보자.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Patch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id/status</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">updateBoardStatus</span><span class="p">(</span>
+	<span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+	<span class="p">@</span><span class="nd">Body</span><span class="p">(</span><span class="dl">'</span><span class="s1">status</span><span class="dl">'</span><span class="p">,</span> <span class="nx">BoardStatusValidationPipe</span><span class="p">)</span> <span class="nx">status</span><span class="p">:</span> <span class="nx">BoardStatus</span>
+<span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">updateBoardStatus</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>컨트롤러를 수정하고</p>
+<pre><code>value kim
+meta { metatype: [Function: String], type: 'body', data: 'status' }
+</code></pre>
+<p>API를 날려보면 위와 같은 콘솔 로그가 찍힌다.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ArgumentMetadata</span><span class="p">,</span> <span class="nx">BadRequestException</span><span class="p">,</span> <span class="nx">PipeTransform</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@nestjs/common</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BoardStatus</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../board.model</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BoardStatusValidationPipe</span> <span class="k">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+
+  <span class="k">readonly</span> <span class="nx">StatusOptions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">BoardStatus</span><span class="p">.</span><span class="nx">PRIVATE</span><span class="p">,</span>
+    <span class="nx">BoardStatus</span><span class="p">.</span><span class="nx">PUBLIC</span>
+  <span class="p">]</span>
+
+  <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">metadata</span><span class="p">:</span> <span class="nx">ArgumentMetadata</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">string</span><span class="dl">'</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isStatusValid</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nx">BadRequestException</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">value</span><span class="p">}</span><span class="s2"> isn't in the status options`</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">private</span> <span class="nx">isStatusValid</span><span class="p">(</span><span class="nx">status</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">StatusOptions</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">status</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">index</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="section-8">예외 처리</h2>
+<p><a href="https://docs.nestjs.com/exception-filters">https://docs.nestjs.com/exception-filters</a></p>
+<h3 id="exception---">내장 exception을 이용한 예외 처리</h3>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">getBoardById</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">Board</span> <span class="p">{</span>
+	<span class="kd">const</span> <span class="nx">found</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">boardsService</span><span class="p">.</span><span class="nx">getBoardById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">found</span><span class="p">)</span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nx">NotFoundException</span><span class="p">(</span><span class="s2">`Can't find board with id </span><span class="p">${</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span> <span class="c1">//@nestjs/common 에서 import 해와야 함</span>
+	<span class="k">return</span> <span class="nx">found</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

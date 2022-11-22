@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SolidJS - Control Flow - For | 906bc906</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="SolidJS - Control Flow - For" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="https://www.solidjs.com/tutorial/flow_for" />
+<meta property="og:description" content="https://www.solidjs.com/tutorial/flow_for" />
+<link rel="canonical" href="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Control%20Flow%20-%20For.md" />
+<meta property="og:url" content="https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Control%20Flow%20-%20For.md" />
+<meta property="og:site_name" content="906bc906" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-10T00:16:06+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SolidJS - Control Flow - For" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-22T20:09:21+09:00","datePublished":"2022-10-10T00:16:06+09:00","description":"https://www.solidjs.com/tutorial/flow_for","headline":"SolidJS - Control Flow - For","mainEntityOfPage":{"@type":"WebPage","@id":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Control%20Flow%20-%20For.md"},"url":"https://906bc906.github.io/jekyll-blog/pages/note/SolidJS%20-%20Control%20Flow%20-%20For.md"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/jekyll-blog/favicon.ico" />
+<link rel="apple-touch-icon" href="/jekyll-blog/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="906bc906 - Second, and Public brain of 906bc906"
+  href="/jekyll-blog/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/jekyll-blog/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+
+<script src="/jekyll-blog/assets/scripts/jekyllpaper.js" async></script>
+<script defer src="/jekyll-blog/assets/scripts/img-remove-md.js"></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <span class="header-info-name">906bc906</span>
+  <span class="header-info-desc">Second, and Public brain of 906bc906</span>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/">
+        
+          All posts
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/pages/note/메인%20Main.md">
+        
+          Index
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/jekyll-blog/feed/pages.xml">
+        
+          RSS
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>SolidJS - Control Flow - For</h1>
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      작성일
+      2022-10-10 00:16 +09:00
+      <br/>
+      
+        수정일
+        2022-11-22 20:09 +09:00
+      
+    </div>
+  </div>
+  <ol id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#section">문제</a></li>
+</ol>
+  <hr>
+  
+  <div class="post-author print-post-author">
+    <span>906bc906</span>
+  </div>
+  
+  <div class="post-content">
+    <p><a href="https://www.solidjs.com/tutorial/flow_for">https://www.solidjs.com/tutorial/flow_for</a></p>
+<p>For 컴포넌트를 사용해 객체 배열에 대해 반복을 편하게 할 수 있다.</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">target</span><span class="p">=</span><span class="s">"_blank"</span> <span class="na">href</span><span class="p">=</span><span class="s">""</span><span class="p">&gt;</span>
+          1: Garfield
+        <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div></div>
+<p>위 코드에서 li 컴포넌트를 cats() 로 전개하고 싶다면,</p>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">For</span> <span class="na">each</span><span class="p">=</span><span class="si">{</span><span class="nx">cats</span><span class="p">()</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="p">(</span><span class="nx">cat</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">target</span><span class="p">=</span><span class="s">"_blank"</span> <span class="na">href</span><span class="p">=</span><span class="si">{</span><span class="s2">`https://www.youtube.com/watch?v=</span><span class="p">${</span><span class="nx">cat</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">i</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span>: <span class="si">{</span><span class="nx">cat</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="si">}</span><span class="p">&lt;/</span><span class="nc">For</span><span class="p">&gt;</span>
+</code></pre></div></div>
+<p>이렇게 수정할 수 있다.</p>
+<p>주의해야 하는 점은 다음과 같다.</p>
+<ol>
+<li>인덱스는 상수가 아닌 Signal 이다. (<code>i()</code>)</li>
+<li>each prop은 배열 타입만 사용해야 한다.
+<ol>
+<li>iterable 객체를 배열로 바꾸려면
+<ol>
+<li>Object.keys</li>
+<li>Array.from</li>
+<li>스프레드 구문 (<code>...</code>)</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<hr />
+<h2 id="section">문제</h2>
+<p>TARGET DECK
+전체::개발::solid</p>
+<!--ankiQ-->
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">target</span><span class="p">=</span><span class="s">"_blank"</span> <span class="na">href</span><span class="p">=</span><span class="s">""</span><span class="p">&gt;</span>
+          1: Garfield
+        <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div></div>
+<p>위 solid tsx 코드에서 li 컴포넌트를 cats() 로 전개하고 싶다면 어떻게 해야겠는가?</p>
+<p>cats()는 배열임이 보장되어있다.</p>
+<p>Index 컴포넌트는 사용하지 않는다.</p>
+<!--ankiA-->
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">For</span> <span class="na">each</span><span class="p">=</span><span class="si">{</span><span class="nx">cats</span><span class="p">()</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="p">(</span><span class="nx">cat</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">target</span><span class="p">=</span><span class="s">"_blank"</span> <span class="na">href</span><span class="p">=</span><span class="si">{</span><span class="s2">`https://www.youtube.com/watch?v=</span><span class="p">${</span><span class="nx">cat</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">i</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span>: <span class="si">{</span><span class="nx">cat</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="si">}</span><span class="p">&lt;/</span><span class="nc">For</span><span class="p">&gt;</span>
+</code></pre></div></div>
+<p>인덱스 i 가 상수가 아니라 시그널로 쓰여지고 있음에 주의한다.</p>
+<!--ankiE-->
+<!--ID: 1664950271994-->
+<hr />
+<!--ankiQ-->
+<p>solid의 For 컴포넌트의 each prop에는 배열만 올 수 있다. Iterable 객체를 each Prop에 넣고 싶은 경우 어떤 해결 방안이 있겠는가?</p>
+<!--ankiA-->
+<ol>
+<li>Array.from</li>
+<li>Object.keys</li>
+<li>Spread Operator</li>
+</ol>
+<!--ankiE-->
+<!--ID: 1664950272011-->
+
+  </div>
+  <hr>
+  
+    
+<script src="https://giscus.app/client.js"
+        data-repo="906bc906/jekyll-blog"
+        data-repo-id="R_kgDOIKfIuQ"
+        data-category="Comment"
+        data-category-id="DIC_kwDOIKfIuc4CR3ta"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2022. 906bc906.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>
